@@ -1,0 +1,3 @@
+/Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/cmake-build-debug/CMakeFiles/HD_Virtual.dir
