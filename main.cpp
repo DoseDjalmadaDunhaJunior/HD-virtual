@@ -132,10 +132,11 @@ void createhd(string str){
 
 void create(string str,generico gen) {
     int cCont = 0, cNome = 0;
-    StringChar go, cont;
+    char temp[5] = {'0','0','0','0',0};
+    int garantia = 0;
     //cin>>gen.cont;
     gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
-    int tam = go.tamanho(gen.cont);
+
     //estrutura(2, gen);
     for (int i = 1; i <= 1024; i++) {
         for (int j = 1; j <= 33; j++) {
@@ -144,14 +145,40 @@ void create(string str,generico gen) {
             }
                 //diretorio
             else if (i < 21) {
+                //da posicao 17 ate 32
                 if (j > 16) {
                     char *qwe = const_cast<char *>(gen.arquivo.c_str());
                     if (cNome < gen.arquivo.size()) {
-                        char ver = qwe[cNome];
                         txt[i][j] = qwe[cNome];
-                        //fprintf(arq,"%c", qwe[cNome]);
                         cNome++;
                     }
+                }
+                //da posicao 13 ate 16
+                else if(j > 12 && garantia == 0){
+                    int tint = gen.cont.size();
+                    int ant;
+                    if(tint > 999){
+                        ant = (tint/1000);
+                        temp[0] = ant + '0';
+                        tint = tint - (ant*1000);
+                    }
+                    if(tint > 99){
+                        ant = (tint/100);
+                        temp[1] = (tint/100) + '0';
+                        tint = tint - (ant*100);
+                    }
+                    if(tint > 9){
+                        ant = (tint/10);
+                        temp[2] = (tint/10) + '0';
+                        tint = tint - (ant*10);
+                    }
+                    tint = tint;
+                    temp[3] = tint + '0';
+                    txt[i][13] = temp[0];
+                    txt[i][14] = temp[1];
+                    txt[i][15] = temp[2];
+                    txt[i][16] = temp[3];
+                    garantia++;
                 }
             }
                 //arquivos
