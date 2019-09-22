@@ -42,38 +42,39 @@ void estrutura(int op,generico rts) {
         }
     } else if (op == 2) {
         StringChar bola;
-        for (int i = 1; i <= 20; i++) {
-                if(txt[i][1] == 0){
-                    txt[i][1] = 1;
-                    exit;
+        int i = 0;
+        for (i = 1; (i <= 20) || (txt[i][1]) == 0; i++) {
 
-            }
         }
-        /*
-        for (int k = 1; k < 20; k++) {
-            for (int i = 5; i <= 8; i++) {
+        if (txt[i][1] == 0) {
+            txt[i][1] = 1;
+            /*
+            for (int k = 1; k < 20; k++) {
+                for (int i = 5; i <= 8; i++) {
 
+                }
             }
-        }
-        for (int k = 1; k < 20; k++) {
-            for (int i = 9; i <= 12; i++) {
+            for (int k = 1; k < 20; k++) {
+                for (int i = 9; i <= 12; i++) {
 
+                }
             }
-        }
 
-        for (int k = 1; k < 20; k++) {
-            for (int i = 13; i <= 16; i++) {
+            for (int k = 1; k < 20; k++) {
+                for (int i = 13; i <= 16; i++) {
 
+                }
             }
-        }
-         */
-        for (int k = 1; k < 20; k++) {
-            for (int i = 17; i <= 32; i++) {
-                txt[k][i] = bola.converte(rts.arquivo)[i];
+             */
+            for (int k = 1; k < 20; k++) {
+                for (int i = 17; i <= 32; i++) {
+                    txt[k][i] = bola.converte(rts.arquivo)[i];
+                }
             }
+
         }
+        *txt[33] = '\n';
     }
-    *txt[33] = '\n';
 }
 
 void createhd(string str){
@@ -104,10 +105,13 @@ void createhd(string str){
 
 void create(string str,generico gen){
     FILE* arq;
+    int cCont = 0, cNome = 0;
     str = str + ".txt";
     StringChar go, cont;
     //cin>>gen.cont;
     gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+    int tam = go.tamanho(gen.cont);
+
     arq = fopen(go.converte(str), "w");
     estrutura(2, gen);
     for (int i = 0; i <= 1024 ; i++) {
@@ -121,10 +125,20 @@ void create(string str,generico gen){
             if(i > 0 && j > 0) {
                 fprintf(arq, "%c ", txt[i][j]);
             }
-
-            if(i >= 21 && j >= 9 && j <= 32){
-                if(gen.cont[i] != 0){
-                    fprintf(arq,"%s",gen.cont[i]);
+            /*
+            if(i < 21 && j > 16 && j < 33){
+                char* qwe = go.converte(gen.arquivo);
+                if(qwe[cNome] != '\0'){
+                    fprintf(arq,"%c", qwe[cNome]);
+                    cNome++;
+                }
+            }
+             */
+            else if(i > 20 && j > 8 && j < 31){
+                char* qwe = go.converte(gen.cont);
+                if(qwe[cCont] != '\0'){
+                    fprintf(arq,"%c", qwe[cCont]);
+                    cCont++;
                 }
             }
         }
@@ -148,6 +162,7 @@ int main() {
 
     //cout<<"#" << oi << "> ";
      cout<<"#" << "oi" << "> ";
+
     if("create"){
         //cin>>io;
         io = " Arquivo_A";
@@ -156,6 +171,7 @@ int main() {
         create(oi,gen);
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
+
     //estrutura();
     salva();
     return 0;
