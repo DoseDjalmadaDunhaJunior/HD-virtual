@@ -25,7 +25,6 @@ public:
         return to_string(n);
     }
 
-
     int tamanho(char* txt){
         int i = 0;
         for (i = 0; txt[i] != '\0' ; i++) {

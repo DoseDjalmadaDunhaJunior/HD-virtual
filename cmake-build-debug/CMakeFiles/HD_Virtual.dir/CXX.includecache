@@ -15,6 +15,8 @@ string
 /Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/main.cpp
 iostream
 -
+string
+-
 StringChar.hpp
 /Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/StringChar.hpp
 stdio.h

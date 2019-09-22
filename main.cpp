@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include "StringChar.hpp"
 #include <stdio.h>
 #include <stdlib.h>
@@ -15,19 +16,45 @@ struct generico{
 
 typedef struct generico generico;
 
+void zera(){
+    for (int i = 0; i < 1025; i++) {
+        for (int j = 0; j < 34; j++) {
+            txt[i][j] = 32;
+        }
+    }
+}
+
 void salva(){
     FILE* arq;
     arq = fopen("HD1.txt", "w");
-    for (int i = 1; i <= 1024 ; i++) {
-        for (int j = 1; j <= 33; j++) {
-            fprintf(arq, "%c ", txt[i][j]);
+    for (int i = 0; i <= 1025 ; i++) {
+        for (int j = 0; j <= 33; j++) {
+            if(i == 0 && j != 0){
+                fprintf(arq,"%i ", j);
+                if(j == 33){
+                    fprintf(arq,"\n");
+                }
+            }
+            else if(j == 0 && i != 0){
+                fprintf(arq,"%i", i);
+            }
+            else if(j == 0 && i == 0){
+                fprintf(arq, "%c ", 32);
+            }
+            else{
+                char ver = txt[i][j];
+                if(j == 17){
+
+                }
+                fprintf(arq,"%c", txt[i][j]);
+            }
         }
-        fprintf(arq,"\n");
+        //fprintf(arq,"\n");
     }
     fclose(arq);
 
 }
-
+/*
 void estrutura(int op,generico rts) {
     if (op == 1) {
         for (int i = 0; i <= 1024; i++) {
@@ -65,7 +92,7 @@ void estrutura(int op,generico rts) {
 
                 }
             }
-             */
+
             for (int k = 1; k < 20; k++) {
                 for (int i = 17; i <= 32; i++) {
                     txt[k][i] = bola.converte(rts.arquivo)[i];
@@ -76,7 +103,7 @@ void estrutura(int op,generico rts) {
         *txt[33] = '\n';
     }
 }
-
+*/
 void createhd(string str){
     FILE* arq;
     str = str + ".txt";
@@ -84,7 +111,7 @@ void createhd(string str){
     cout<<go.converte(str);
     generico x;
     arq = fopen(go.converte(str), "w");
-    estrutura(1,x);
+    //estrutura(1,x);
     for (int i = 0; i <= 1024 ; i++) {
         for (int j = 0; j <= 33; j++) {
             if(i == 0 && j < 33){
@@ -103,53 +130,50 @@ void createhd(string str){
     fclose(arq);
 }
 
-void create(string str,generico gen){
-    FILE* arq;
+void create(string str,generico gen) {
     int cCont = 0, cNome = 0;
-    str = str + ".txt";
     StringChar go, cont;
     //cin>>gen.cont;
     gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     int tam = go.tamanho(gen.cont);
-
-    arq = fopen(go.converte(str), "w");
-    estrutura(2, gen);
-    for (int i = 0; i <= 1024 ; i++) {
-        for (int j = 0; j <= 33; j++) {
-            if(i == 0 && j < 33){
-                fprintf(arq,"%i ", j);
+    //estrutura(2, gen);
+    for (int i = 1; i <= 1024; i++) {
+        for (int j = 1; j <= 33; j++) {
+            if (j == 33) {
+                txt[i][j] = '\n';
             }
-            else if(j == 0 ){
-                fprintf(arq,"%i ", i);
-            }
-            if(i > 0 && j > 0) {
-                fprintf(arq, "%c ", txt[i][j]);
-            }
-            /*
-            if(i < 21 && j > 16 && j < 33){
-                char* qwe = go.converte(gen.arquivo);
-                if(qwe[cNome] != '\0'){
-                    fprintf(arq,"%c", qwe[cNome]);
-                    cNome++;
+                //diretorio
+            else if (i < 21) {
+                if (j > 16) {
+                    char *qwe = const_cast<char *>(gen.arquivo.c_str());
+                    if (cNome < gen.arquivo.size()) {
+                        char ver = qwe[cNome];
+                        txt[i][j] = qwe[cNome];
+                        //fprintf(arq,"%c", qwe[cNome]);
+                        cNome++;
+                    }
                 }
             }
-             */
-            else if(i > 20 && j > 8 && j < 31){
-                char* qwe = go.converte(gen.cont);
-                if(qwe[cCont] != '\0'){
-                    fprintf(arq,"%c", qwe[cCont]);
-                    cCont++;
+                //arquivos
+            else {
+                if (j > 8) {
+                    char *qwe = const_cast<char *>(gen.cont.c_str());
+                    if (cCont < gen.cont.size()) {
+                        txt[i][j] = qwe[cCont];
+                        //fprintf(arq,"%c", qwe[cCont]);
+                        cCont++;
+                    }
                 }
             }
         }
-        fprintf(arq,"\n");
     }
-    fclose(arq);
+
 }
 
 int main() {
     string oi,io;
     string* pont;
+    zera();
     cout<<"#";
     //cin>>oi;
     oi = "createhd";
@@ -165,14 +189,16 @@ int main() {
 
     if("create"){
         //cin>>io;
-        io = " Arquivo_A";
+        io = "Arquivo_A";
         generico gen;
         gen.arquivo = io;
         create(oi,gen);
+        //salva();
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
     //estrutura();
     salva();
+
     return 0;
 }
