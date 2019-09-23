@@ -130,6 +130,7 @@ void createhd(string str){
     fclose(arq);
 }
 
+//bolar estrategia para pegar posicao inicial certa no diretorio
 void create(string str,generico gen) {
     int cCont = 0, cNome = 0;
     char temp[5] = {'0','0','0','0',0};
@@ -179,6 +180,27 @@ void create(string str,generico gen) {
                     txt[i][15] = temp[2];
                     txt[i][16] = temp[3];
                     garantia++;
+                }
+                // posição 9 ate 12
+                else if(j > 8){
+                    if(i == 1){
+                        //aqui é 21
+                    }
+                    else if(i > 1){
+                        int tam = gen.cont.size(), ok = 0;
+                        int c = 0;
+                        while(ok == 0){
+                            if(tam > 24){
+                                c++;
+                                tam = tam - 24;
+                            }
+                            else{
+                                ok++;
+                            }
+                        }
+                        //aqui fazemos uma logica tipo txt[i][j] == tam
+                        cout<<tam<<endl;
+                    }
                 }
             }
                 //arquivos
