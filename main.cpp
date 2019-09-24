@@ -16,12 +16,27 @@ struct generico{
 
 typedef struct generico generico;
 
+
 void zera(){
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
             txt[i][j] = 32;
         }
     }
+}
+
+void populaPrevio(){
+    FILE* ler;
+    ler = fopen("HD1.txt", "r");
+    char *oi = nullptr;
+    for (int i = 0; i <= 1024 ; i++) {
+        fgets(txt[i],34,ler);
+    }
+    fclose(ler);
+    for (int i = 0; i < 1025; i++) {
+            printf("%s ", txt[i]);
+        }
+        puts("");
 }
 
 void salva(){
@@ -36,16 +51,12 @@ void salva(){
                 }
             }
             else if(j == 0 && i != 0){
-                fprintf(arq,"%i", i);
+                fprintf(arq,"%i ", i);
             }
             else if(j == 0 && i == 0){
-                fprintf(arq, "%c ", 32);
+                fprintf(arq, "%c", 32);
             }
             else{
-                char ver = txt[i][j];
-                if(j == 17){
-
-                }
                 fprintf(arq,"%c", txt[i][j]);
             }
         }
@@ -135,6 +146,7 @@ void create(string str,generico gen) {
     int cCont = 0, cNome = 0;
     char temp[5] = {'0','0','0','0',0};
     int garantia = 0;
+    //populaPrevio();
     //cin>>gen.cont;
     gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
 
@@ -182,9 +194,13 @@ void create(string str,generico gen) {
                     garantia++;
                 }
                 // posição 9 ate 12
+                //deixar para completar depois
                 else if(j > 8){
                     if(i == 1){
-                        //aqui é 21
+                        txt[i][9] = '0';
+                        txt[i][10] = '0';
+                        txt[i][11] = '2';
+                        txt[i][12] = '1';
                     }
                     else if(i > 1){
                         int tam = gen.cont.size(), ok = 0;
@@ -199,9 +215,36 @@ void create(string str,generico gen) {
                             }
                         }
                         //aqui fazemos uma logica tipo txt[i][j] == tam
-                        cout<<tam<<endl;
+                    }
+
+                }
+                //de 5 a 8, nao entendi direito como funciona
+                else if(j > 4){
+
+                }
+                //para uso futuro
+                else if(j == 4){
+                    txt[i][j] = 32;
+                }
+                else if(j == 3){
+                    //se for arquivo = 0, se for pasta = 1
+                    txt[i][j] = '0';
+                }
+                else if(j == 2){
+                    txt[i][j] = 0;
+                }
+                /*
+                else if(j == 1){
+                    if(gen.arquivo.size() > 1){
+                        if(txt[i][j] == '0'){
+
+                        }
+                    }
+                    else{
+                        txt[i][j] = '0';
                     }
                 }
+                 */
             }
                 //arquivos
             else {
@@ -242,7 +285,8 @@ int main() {
         generico gen;
         gen.arquivo = io;
         create(oi,gen);
-        //salva();
+        //populaPrevio();
+        salva();
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
