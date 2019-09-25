@@ -3,6 +3,7 @@
 #include "StringChar.hpp"
 #include <stdio.h>
 #include <stdlib.h>
+#include <fstream>
 
 //int p = atoi(h);
 using namespace std;
@@ -14,8 +15,24 @@ struct generico{
     string arquivo = " ";
 };
 
-typedef struct generico generico;
+void teste(){
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            txt[i][j] = (65 + i);
+        }
+    }
+    FILE* arq;
+    arq = fopen("HD1.txt", "w");
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            fprintf(arq,"%c", txt[i][j]);
+        }
+        fprintf(arq, "%c", '\n');
+    }
+    fclose(arq);
+}
 
+typedef struct generico generico;
 
 void zera(){
     for (int i = 0; i < 1025; i++) {
@@ -28,17 +45,28 @@ void zera(){
 void populaPrevio(){
     FILE* ler;
     ler = fopen("HD1.txt", "r");
-    char *oi = nullptr;
-    for (int i = 0; i <= 1024 ; i++) {
-        fgets(txt[i],34,ler);
-    }
-    fclose(ler);
+    char oi;
     for (int i = 0; i < 1025; i++) {
-            printf("%s ", txt[i]);
+        for (int j = 0; j < 34; j++) {
+            fscanf(ler,"%c", &oi);
+            txt[i][j] = oi;
         }
-        puts("");
+        //fgets(txt[i],100,ler);
+    }
+    cout<<txt[1][20]<<endl;
 }
 
+void salva2(){
+    FILE* arq;
+    arq = fopen("HD1.txt", "w");
+    for (int i = 0; i <= 1025 ; i++) {
+        for (int j = 0; j <= 33; j++) {
+            fprintf(arq,"%c", txt[i][j]);
+        }
+    }
+    fclose(arq);
+
+}
 void salva(){
     FILE* arq;
     arq = fopen("HD1.txt", "w");
@@ -281,17 +309,20 @@ int main() {
 
     if("create"){
         //cin>>io;
+        //teste();
         io = "Arquivo_A";
         generico gen;
         gen.arquivo = io;
-        create(oi,gen);
-        //populaPrevio();
-        salva();
+        //create(oi,gen);
+        populaPrevio();
+        //salva();
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
+    //zera();
     //estrutura();
-    salva();
+    salva2();
+    //salva();
 
     return 0;
 }
