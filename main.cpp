@@ -8,8 +8,8 @@ using namespace std;
 char txt[1025][34];
 
 struct generico{
-    string cont = " ";
-    string arquivo = " ";
+    string cont;
+    string arquivo;
 };
 
 void teste(){
@@ -66,20 +66,29 @@ void populaPrevio(){
     cout<<txt[1][20]<<endl;
 }
 
-void apaga(){
-    string kkk = "triste";
-    char ccc[15];
-    strcpy(ccc,kkk.c_str());
-    int comp = kkk.size();
+void apaga() {
+    char kkk[16] = "Arquivo_B\0";
+    int comp = 6;
     int ig = 0;
-    for (int i = 0; i < 20; i++) {
-        for (int j = 16; j < 32; j++) {
-            if(ccc[j] == txt[i][j]){
+
+    int i,j;
+    char v1,v2;
+    int v3;
+    int rept = 0;
+    for (i = 0; i < 20; i++) {
+        for (j = 16; (j < 33 && txt[i][j] != 0); j++) {
+            v1 = kkk[j-16];
+            v2 = txt[i][j];
+            if(kkk[j-16] == txt[i][j]){
                 ig++;
             }
         }
-        if(comp == ig){
-            puts("achou");
+        j++;
+        //int soma = j -16;
+        v3 = j - 17;
+        if((ig == (j - 17)) && rept == 0){
+            txt[i][0] = '0';
+            rept = 1;
         }
         else{
             ig = 0;
@@ -206,7 +215,7 @@ void create(string str,generico gen) {
     populaPrevio();
     //cin>>gen.cont;
     //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
-    gen.cont = "triste";
+    gen.cont = "ABACATE";
     int i = 0;
     cout<<txt[0][0]<<endl;
     for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
@@ -365,17 +374,18 @@ int main() {
     if("create"){
         //cin>>io;
         //teste();
-        io = "Teste";
+        io = "Arquivo_C";
         generico gen;
         gen.arquivo = io;
         populaPrevio();
-        create(oi,gen);
+        //create(oi,gen);
 
         //salva();
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
     //zera();
+    apaga();
     //estrutura();
     salva2();
     //salva();
