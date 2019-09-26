@@ -1,9 +1,6 @@
 #include <iostream>
 #include <string>
-#include "StringChar.hpp"
 #include <stdio.h>
-#include <stdlib.h>
-#include <fstream>
 
 //int p = atoi(h);
 using namespace std;
@@ -37,7 +34,20 @@ typedef struct generico generico;
 void zera(){
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
-            txt[i][j] = 32;
+            if((j == 0 || j == 1)&& i < 20){
+                txt[i][0] = '0';
+                txt[i][1] = '0';
+            }
+            else if ((j == 0 || j == 1)&& i >= 21){
+                txt[i][0] = '0';
+                txt[i][1] = '1';
+            }
+            else if(j == 33){
+                txt[i][j] = '\n';
+            }
+            else{
+                txt[i][j] = 32;
+            }
         }
     }
 }
@@ -65,7 +75,6 @@ void salva2(){
         }
     }
     fclose(arq);
-
 }
 void salva(){
     FILE* arq;
@@ -146,10 +155,8 @@ void estrutura(int op,generico rts) {
 void createhd(string str){
     FILE* arq;
     str = str + ".txt";
-    StringChar go;
-    cout<<go.converte(str);
     generico x;
-    arq = fopen(go.converte(str), "w");
+    arq = fopen(str.c_str(), "w");
     //estrutura(1,x);
     for (int i = 0; i <= 1024 ; i++) {
         for (int j = 0; j <= 33; j++) {
@@ -172,122 +179,92 @@ void createhd(string str){
 //bolar estrategia para pegar posicao inicial certa no diretorio
 void create(string str,generico gen) {
     int cCont = 0, cNome = 0;
-    char temp[5] = {'0','0','0','0',0};
+    char temp[5] = {'0', '0', '0', '0', 0};
     int garantia = 0;
-    //populaPrevio();
+    zera();
+    populaPrevio();
     //cin>>gen.cont;
-    gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+    //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+    gen.cont = "triste";
+    int i = 0;
+    cout<<txt[0][0]<<endl;
+    for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
 
-    //estrutura(2, gen);
-    for (int i = 1; i <= 1024; i++) {
-        for (int j = 1; j <= 33; j++) {
-            if (j == 33) {
-                txt[i][j] = '\n';
-            }
-                //diretorio
-            else if (i < 21) {
-                //da posicao 17 ate 32
-                if (j > 16) {
-                    char *qwe = const_cast<char *>(gen.arquivo.c_str());
-                    if (cNome < gen.arquivo.size()) {
-                        txt[i][j] = qwe[cNome];
-                        cNome++;
-                    }
-                }
-                //da posicao 13 ate 16
-                else if(j > 12 && garantia == 0){
-                    int tint = gen.cont.size();
-                    int ant;
-                    if(tint > 999){
-                        ant = (tint/1000);
-                        temp[0] = ant + '0';
-                        tint = tint - (ant*1000);
-                    }
-                    if(tint > 99){
-                        ant = (tint/100);
-                        temp[1] = (tint/100) + '0';
-                        tint = tint - (ant*100);
-                    }
-                    if(tint > 9){
-                        ant = (tint/10);
-                        temp[2] = (tint/10) + '0';
-                        tint = tint - (ant*10);
-                    }
-                    tint = tint;
-                    temp[3] = tint + '0';
-                    txt[i][13] = temp[0];
-                    txt[i][14] = temp[1];
-                    txt[i][15] = temp[2];
-                    txt[i][16] = temp[3];
-                    garantia++;
-                }
-                // posição 9 ate 12
-                //deixar para completar depois
-                else if(j > 8){
-                    if(i == 1){
-                        txt[i][9] = '0';
-                        txt[i][10] = '0';
-                        txt[i][11] = '2';
-                        txt[i][12] = '1';
-                    }
-                    else if(i > 1){
-                        int tam = gen.cont.size(), ok = 0;
-                        int c = 0;
-                        while(ok == 0){
-                            if(tam > 24){
-                                c++;
-                                tam = tam - 24;
-                            }
-                            else{
-                                ok++;
-                            }
-                        }
-                        //aqui fazemos uma logica tipo txt[i][j] == tam
-                    }
+    }
 
-                }
-                //de 5 a 8, nao entendi direito como funciona
-                else if(j > 4){
+    cout<<txt[0][0]<<endl;
+    txt[i][0] = '1';
+    txt[i][1] = '0';
+    txt[i][2] = '0';
+    txt[i][3] = ' ';
+    txt[i][4] = '0';
+    txt[i][5] = '0';
+    txt[i][6] = '0';
+    txt[i][7] = '0';
+    txt[i][8] = '0';
+    txt[i][9] = '0';
+    txt[i][10] = '2';
+    txt[i][11] = '1';
+    int tint = gen.cont.size();
+    int ant;
+    if (tint > 999) {
+        ant = (tint / 1000);
+        temp[0] = ant + '0';
+        tint = tint - (ant * 1000);
+    }
+    if (tint > 99) {
+        ant = (tint / 100);
+        temp[1] = (tint / 100) + '0';
+        tint = tint - (ant * 100);
+    }
+    if (tint > 9) {
+        ant = (tint / 10);
+        temp[2] = (tint / 10) + '0';
+        tint = tint - (ant * 10);
+    }
+    tint = tint;
+    temp[3] = tint + '0';
+    txt[i][12] = temp[0];
+    txt[i][13] = temp[1];
+    txt[i][14] = temp[2];
+    txt[i][15] = temp[3];
+    char *qwe = const_cast<char *>(gen.arquivo.c_str());
+    for (int l = 16; l < 32; l++) {
+        txt[i][l] = qwe[l - 16];
+    }
+    for (int k = i; k < 20; k++) {
+        //txt[k][0] = '0';
+        //txt[k][1] = '0';
+    }
+    //txt[i][32] = '\n';
+    i = 20;
+    int g = i;
+    for (g; (g <= 1024) && (txt[g][0] == '1'); g++) {
 
-                }
-                //para uso futuro
-                else if(j == 4){
-                    txt[i][j] = 32;
-                }
-                else if(j == 3){
-                    //se for arquivo = 0, se for pasta = 1
-                    txt[i][j] = '0';
-                }
-                else if(j == 2){
-                    txt[i][j] = 0;
-                }
-                /*
-                else if(j == 1){
-                    if(gen.arquivo.size() > 1){
-                        if(txt[i][j] == '0'){
+    }
+    txt[g][0] = '1';
+    txt[g][1] = '1';
+    txt[g][2] = ' ';
+    txt[g][3] = ' ';
+    txt[g][4] = '0';// deveria ter um zero a menos
+    txt[g][5] = '0';
+    txt[g][6] = '0';
+    txt[g][7] = '2';
+    txt[g][8] = '2';
+    int Ctam = gen.cont.size();
 
-                        }
-                    }
-                    else{
-                        txt[i][j] = '0';
-                    }
-                }
-                 */
-            }
-                //arquivos
-            else {
-                if (j > 8) {
-                    char *qwe = const_cast<char *>(gen.cont.c_str());
-                    if (cCont < gen.cont.size()) {
-                        txt[i][j] = qwe[cCont];
-                        //fprintf(arq,"%c", qwe[cCont]);
-                        cCont++;
-                    }
-                }
-            }
+    char *asd = const_cast<char *>(gen.cont.c_str());
+    for (int l = 9; asd[l-9] != '\0'; l++) {
+        if(Ctam > 23){
+            Ctam = Ctam-23;
+            txt[g][(23 -(l-9))] = asd[l-9];
+        }
+        else{
+            txt[g][l] = asd[l-9];
         }
     }
 
+    //txt[g][32] = '\n';
 }
 
 int main() {
@@ -310,16 +287,17 @@ int main() {
     if("create"){
         //cin>>io;
         //teste();
-        io = "Arquivo_A";
+        io = "Teste";
         generico gen;
         gen.arquivo = io;
-        //create(oi,gen);
         populaPrevio();
+        create(oi,gen);
+
         //salva();
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
-    //zera();
+    zera();
     //estrutura();
     salva2();
     //salva();
