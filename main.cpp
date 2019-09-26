@@ -66,6 +66,27 @@ void populaPrevio(){
     cout<<txt[1][20]<<endl;
 }
 
+void apaga(){
+    string kkk = "triste";
+    char ccc[15];
+    strcpy(ccc,kkk.c_str());
+    int comp = kkk.size();
+    int ig = 0;
+    for (int i = 0; i < 20; i++) {
+        for (int j = 16; j < 32; j++) {
+            if(ccc[j] == txt[i][j]){
+                ig++;
+            }
+        }
+        if(comp == ig){
+            puts("achou");
+        }
+        else{
+            ig = 0;
+        }
+    }
+}
+
 void salva2(){
     FILE* arq;
     arq = fopen("HD1.txt", "w");
@@ -201,26 +222,83 @@ void create(string str,generico gen) {
     txt[i][5] = '0';
     txt[i][6] = '0';
     txt[i][7] = '0';
-    txt[i][8] = '0';
-    txt[i][9] = '0';
-    txt[i][10] = '2';
-    txt[i][11] = '1';
+    if(i == 0){
+        txt[i][8] = '0';
+        txt[i][9] = '0';
+        txt[i][10] = '2';
+        txt[i][11] = '1';
+    }
+    else {
+        int mil = 0,cen = 0,dez = 0,uni = 0;
+        if (txt[i-1][8] > '0') {
+            char y = txt[i-1][8];
+            mil = y - '0';
+            mil = mil*1000;
+        }
+        if(txt[i-1][9] > '0'){
+            char y = txt[i-1][9];
+            cen = y - '0';
+            cen = cen*100;
+        }
+        if(txt[i-1][10] > '0'){
+            char y = txt[i-1][10];
+            dez = y - '0';
+            dez = dez*10;
+        }
+        if(txt[i-1][11] > '0'){
+            char y = txt[i-1][11];
+            uni = y - '0';
+        }
+        int soma = mil+cen+dez+uni;
+        soma++;
+        int ant;
+        if (soma > 999) {
+            ant = (soma / 1000);
+            temp[0] = ant + '0';
+            soma = soma - (ant * 1000);
+        }
+        if (soma > 99) {
+            ant = (soma / 100);
+            temp[1] = (soma / 100) + '0';
+            soma = soma - (ant * 100);
+        }
+        if (soma > 9) {
+            ant = (soma / 10);
+            temp[2] = (soma / 10) + '0';
+            soma = soma - (ant * 10);
+        }
+        soma = soma;
+        temp[3] = soma + '0';
+        txt[i][8] = temp[0];
+        txt[i][9] = temp[1];
+        txt[i][10] = temp[2];
+        txt[i][11] = temp[3];
+    }
     int tint = gen.cont.size();
-    int ant;
+    int ant = 0;
     if (tint > 999) {
         ant = (tint / 1000);
         temp[0] = ant + '0';
         tint = tint - (ant * 1000);
+    }
+    else{
+        temp[0] = '0';
     }
     if (tint > 99) {
         ant = (tint / 100);
         temp[1] = (tint / 100) + '0';
         tint = tint - (ant * 100);
     }
+    else{
+        temp[1] = '0';
+    }
     if (tint > 9) {
         ant = (tint / 10);
         temp[2] = (tint / 10) + '0';
         tint = tint - (ant * 10);
+    }
+    else{
+        temp[2] = '0';
     }
     tint = tint;
     temp[3] = tint + '0';
@@ -297,7 +375,7 @@ int main() {
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
-    zera();
+    //zera();
     //estrutura();
     salva2();
     //salva();
