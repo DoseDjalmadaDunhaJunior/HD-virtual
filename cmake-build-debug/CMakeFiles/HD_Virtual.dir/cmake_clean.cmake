@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/HD_Virtual.dir/main.cpp.o"
-  "HD_Virtual.pdb"
   "HD_Virtual"
+  "HD_Virtual.pdb"
 )
 
 # Per-language clean rules from dependency scanning.

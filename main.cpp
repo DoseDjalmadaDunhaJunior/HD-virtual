@@ -6,6 +6,7 @@
 using namespace std;
 using namespace std;
 char txt[1025][34];
+char nomedoarquivo[20];
 
 struct generico{
     string cont;
@@ -66,28 +67,48 @@ void populaPrevio(){
     cout<<txt[1][20]<<endl;
 }
 
+int ConteudoLocal(int i){
+    int mil = 0,cen = 0,dez = 0,uni = 0;
+    if (txt[i-1][8] > '0') {
+        char y = txt[i-1][8];
+        mil = y - '0';
+        mil = mil*1000;
+    }
+    if(txt[i-1][9] > '0'){
+        char y = txt[i-1][9];
+        cen = y - '0';
+        cen = cen*100;
+    }
+    if(txt[i-1][10] > '0'){
+        char y = txt[i-1][10];
+        dez = y - '0';
+        dez = dez*10;
+    }
+    if(txt[i-1][11] > '0'){
+        char y = txt[i-1][11];
+        uni = y - '0';
+    }
+    int soma = mil+cen+dez+uni;
+    return soma;
+}
+
 void apaga() {
     char kkk[16] = "Arquivo_B\0";
     int comp = 6;
     int ig = 0;
 
     int i,j;
-    char v1,v2;
-    int v3;
     int rept = 0;
     for (i = 0; i < 20; i++) {
         for (j = 16; (j < 33 && txt[i][j] != 0); j++) {
-            v1 = kkk[j-16];
-            v2 = txt[i][j];
             if(kkk[j-16] == txt[i][j]){
                 ig++;
             }
         }
         j++;
-        //int soma = j -16;
-        v3 = j - 17;
         if((ig == (j - 17)) && rept == 0){
             txt[i][0] = '0';
+            txt[ConteudoLocal(i)][0] = '0';
             rept = 1;
         }
         else{
@@ -106,123 +127,35 @@ void salva2(){
     }
     fclose(arq);
 }
-void salva(){
-    FILE* arq;
-    arq = fopen("HD1.txt", "w");
-    for (int i = 0; i <= 1025 ; i++) {
-        for (int j = 0; j <= 33; j++) {
-            if(i == 0 && j != 0){
-                fprintf(arq,"%i ", j);
-                if(j == 33){
-                    fprintf(arq,"\n");
-                }
-            }
-            else if(j == 0 && i != 0){
-                fprintf(arq,"%i ", i);
-            }
-            else if(j == 0 && i == 0){
-                fprintf(arq, "%c", 32);
-            }
-            else{
-                fprintf(arq,"%c", txt[i][j]);
-            }
-        }
-        //fprintf(arq,"\n");
-    }
-    fclose(arq);
 
+
+int primeiroVago(){
+    FILE* ler;
+    ler = fopen("HD1.txt", "r");
+    char oi;
+    int i;
+    for (i = 20; txt[i][0] != '0'; i++) {
+            fscanf(ler,"%c", &oi);
+            txt[i][0] = oi;
+        }
+    return i;
 }
-/*
-void estrutura(int op,generico rts) {
-    if (op == 1) {
-        for (int i = 0; i <= 1024; i++) {
-            for (int j = 0; j <= 2; j++) {
-                if (i >= 21 && j == 2) {
-                    txt[i][j] = '1';
-                } else {
-                    txt[i][j] = '0';
-                }
 
-            }
-        }
-    } else if (op == 2) {
-        StringChar bola;
-        int i = 0;
-        for (i = 1; (i <= 20) || (txt[i][1]) == 0; i++) {
-
-        }
-        if (txt[i][1] == 0) {
-            txt[i][1] = 1;
-            /*
-            for (int k = 1; k < 20; k++) {
-                for (int i = 5; i <= 8; i++) {
-
-                }
-            }
-            for (int k = 1; k < 20; k++) {
-                for (int i = 9; i <= 12; i++) {
-
-                }
-            }
-
-            for (int k = 1; k < 20; k++) {
-                for (int i = 13; i <= 16; i++) {
-
-                }
-            }
-
-            for (int k = 1; k < 20; k++) {
-                for (int i = 17; i <= 32; i++) {
-                    txt[k][i] = bola.converte(rts.arquivo)[i];
-                }
-            }
-
-        }
-        *txt[33] = '\n';
-    }
-}
-*/
 void createhd(string str){
-    FILE* arq;
-    str = str + ".txt";
-    generico x;
-    arq = fopen(str.c_str(), "w");
-    //estrutura(1,x);
-    for (int i = 0; i <= 1024 ; i++) {
-        for (int j = 0; j <= 33; j++) {
-            if(i == 0 && j < 33){
-                fprintf(arq,"%i ", j);
-            }
-            else if(j == 0 ){
-                fprintf(arq,"%i ", i);
-            }
-            if(i > 0 && j > 0) {
-                fprintf(arq, "%c ", txt[i][j]);
-            }
-        }
-        fprintf(arq,"\n");
-    }
-    puts("ok");
-    fclose(arq);
+    //zera();
+    salva2();
 }
 
-//bolar estrategia para pegar posicao inicial certa no diretorio
 void create(string str,generico gen) {
-    int cCont = 0, cNome = 0;
     char temp[5] = {'0', '0', '0', '0', 0};
-    int garantia = 0;
     zera();
     populaPrevio();
-    //cin>>gen.cont;
-    //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
-    gen.cont = "ABACATE";
     int i = 0;
-    cout<<txt[0][0]<<endl;
+    cout << txt[0][0] << endl;
     for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
 
     }
-
-    cout<<txt[0][0]<<endl;
+    cout << txt[0][0] << endl;
     txt[i][0] = '1';
     txt[i][1] = '0';
     txt[i][2] = '0';
@@ -231,13 +164,13 @@ void create(string str,generico gen) {
     txt[i][5] = '0';
     txt[i][6] = '0';
     txt[i][7] = '0';
-    if(i == 0){
+    if (i == 0) {
         txt[i][8] = '0';
         txt[i][9] = '0';
         txt[i][10] = '2';
         txt[i][11] = '1';
-    }
-    else {
+    } else {
+        /*
         int mil = 0,cen = 0,dez = 0,uni = 0;
         if (txt[i-1][8] > '0') {
             char y = txt[i-1][8];
@@ -258,8 +191,10 @@ void create(string str,generico gen) {
             char y = txt[i-1][11];
             uni = y - '0';
         }
-        int soma = mil+cen+dez+uni;
+         int soma = mil+cen+dez+uni;
         soma++;
+        */
+        int soma = (primeiroVago() + 1);
         int ant;
         if (soma > 999) {
             ant = (soma / 1000);
@@ -289,24 +224,21 @@ void create(string str,generico gen) {
         ant = (tint / 1000);
         temp[0] = ant + '0';
         tint = tint - (ant * 1000);
-    }
-    else{
+    } else {
         temp[0] = '0';
     }
     if (tint > 99) {
         ant = (tint / 100);
         temp[1] = (tint / 100) + '0';
         tint = tint - (ant * 100);
-    }
-    else{
+    } else {
         temp[1] = '0';
     }
     if (tint > 9) {
         ant = (tint / 10);
         temp[2] = (tint / 10) + '0';
         tint = tint - (ant * 10);
-    }
-    else{
+    } else {
         temp[2] = '0';
     }
     tint = tint;
@@ -320,10 +252,9 @@ void create(string str,generico gen) {
         txt[i][l] = qwe[l - 16];
     }
     for (int k = i; k < 20; k++) {
-        //txt[k][0] = '0';
-        //txt[k][1] = '0';
+
     }
-    //txt[i][32] = '\n';
+
     i = 20;
     int g = i;
     for (g; (g <= 1024) && (txt[g][0] == '1'); g++) {
@@ -350,8 +281,6 @@ void create(string str,generico gen) {
             txt[g][l] = asd[l-9];
         }
     }
-
-    //txt[g][32] = '\n';
 }
 
 int main() {
@@ -359,36 +288,37 @@ int main() {
     string* pont;
     zera();
     cout<<"#";
-    //cin>>oi;
-    oi = "createhd";
+    cin>>oi;
     if("createhd"){
-        //cin>>oi;
-        oi = " oi";
-        puts("ok");
+        cin>>oi;
+        for (int i = 0; i < sizeof(oi); i++) {
+            nomedoarquivo[i] = oi[i];
+        }
+        cout<<nomedoarquivo<<endl;
         createhd(oi);
     }
 
-    //cout<<"#" << oi << "> ";
-     cout<<"#" << "oi" << "> ";
-
+    cout<<"#" << oi << ">";
+    cin>>io;
     if("create"){
-        //cin>>io;
-        //teste();
-        io = "Arquivo_C";
         generico gen;
-        gen.arquivo = io;
+        cin>>gen.arquivo;
+        //io = "Arquivo_C";
+        cin>>gen.cont;
+        //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
         populaPrevio();
-        //create(oi,gen);
+        create(oi,gen);
 
         //salva();
         //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
     }
 
     //zera();
-    apaga();
+    //apaga();
     //estrutura();
     salva2();
     //salva();
 
+    //system("pause");
     return 0;
 }
