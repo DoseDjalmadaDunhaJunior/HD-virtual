@@ -6,7 +6,7 @@
 using namespace std;
 using namespace std;
 char txt[1025][34];
-char nomedoarquivo[20];
+char nomedoarquivo[20] = "HD1.txt";
 
 struct generico{
     string cont;
@@ -55,7 +55,7 @@ void zera(){
 
 void populaPrevio(){
     FILE* ler;
-    ler = fopen("HD1.txt", "r");
+    ler = fopen(nomedoarquivo, "r");
     char oi;
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
@@ -64,7 +64,6 @@ void populaPrevio(){
         }
         //fgets(txt[i],100,ler);
     }
-    cout<<txt[1][20]<<endl;
 }
 
 int ConteudoLocal(int i){
@@ -119,7 +118,7 @@ void apaga() {
 
 void salva2(){
     FILE* arq;
-    arq = fopen("HD1.txt", "w");
+    arq = fopen(nomedoarquivo, "w");
     for (int i = 0; i <= 1025 ; i++) {
         for (int j = 0; j <= 33; j++) {
             fprintf(arq,"%c", txt[i][j]);
@@ -128,10 +127,9 @@ void salva2(){
     fclose(arq);
 }
 
-
 int primeiroVago(){
     FILE* ler;
-    ler = fopen("HD1.txt", "r");
+    ler = fopen(nomedoarquivo, "r");
     char oi;
     int i;
     for (i = 20; txt[i][0] != '0'; i++) {
@@ -143,7 +141,36 @@ int primeiroVago(){
 
 void createhd(string str){
     //zera();
+    populaPrevio();
     salva2();
+}
+
+int logCD(char* pasta){
+    int comp = -1;
+    int i = 0;
+    for (i = 0; (i <= 19) && (txt[i][0] == '1'); i++) {
+        if(txt[i][2] == '1'){
+            int ig = 0;
+            int i,j;
+            int rept = 0;
+            for (i = 0; i < 20; i++) {
+                for (j = 16; (j < 33 && txt[i][j] != 0); j++) {
+                    if(pasta[j-16] == txt[i][j]){
+                        ig++;
+                    }
+                }
+                j++;
+                if((ig == (j - 17)) && rept == 0){
+                    comp = i;
+                    rept = 1;
+                }
+                else{
+                    ig = 0;
+                }
+            }
+        }
+    }
+    return comp;
 }
 
 void create(string str,generico gen) {
@@ -151,7 +178,6 @@ void create(string str,generico gen) {
     zera();
     populaPrevio();
     int i = 0;
-    cout << txt[0][0] << endl;
     for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
 
     }
@@ -283,42 +309,94 @@ void create(string str,generico gen) {
     }
 }
 
+void createMK(string str,string gen) {
+    zera();
+    populaPrevio();
+    int i = 0;
+    for (i = 0; (i <= 19) && (txt[i][0] == '1'); i++) {
+
+    }
+    txt[i][0] = '1';
+    txt[i][1] = '0';
+    txt[i][2] = '1';
+    txt[i][3] = ' ';
+        txt[i][4] = '0';
+        txt[i][5] = '0';
+        txt[i][6] = '0';
+        txt[i][7] = '0';
+    txt[i][8] = '0';
+    txt[i][9] = '0';
+    txt[i][10] = '0';
+    txt[i][11] = '0';
+    txt[i][12] = '0';
+    txt[i][13] = '0';
+    txt[i][14] = '0';
+    txt[i][15] = '0';
+    char *qwe = const_cast<char *>(gen.c_str());
+    for (int l = 16; l < 32; l++) {
+        txt[i][l] = qwe[l - 16];
+    }
+}
+
+
 int main() {
-    string oi,io;
+    string oi,io, exit,seg;
     string* pont;
     zera();
     cout<<"#";
-    cin>>oi;
-    if("createhd"){
-        cin>>oi;
+    //cin>>oi;
+    //cin>>seg;
+    oi = "createhd hd1";
+    exit = oi;
+    if("createhd" == seg){
+        //oi = seg;
+        //criar variavel fixa p/ oi
+        oi = "HD1";
+        exit = oi;
         for (int i = 0; i < sizeof(oi); i++) {
-            nomedoarquivo[i] = oi[i];
+            //nomedoarquivo[i] = oi[i];
         }
-        cout<<nomedoarquivo<<endl;
         createhd(oi);
     }
-
-    cout<<"#" << oi << ">";
-    cin>>io;
-    if("create"){
+    exit = io;
+    //while(exit != "exit") {
+        cout << "#" << oi << ">";
+    cin>>oi;
+    cin>>seg;
+    //oi = "mkdir";
+        if("mkdir" == oi){
+            string dente;
+            dente = seg;
+            dente = "Pasta_B";
+            populaPrevio();
+            createMK(oi, dente);
+        }else if ("create" == oi) {
         generico gen;
-        cin>>gen.arquivo;
-        //io = "Arquivo_C";
-        cin>>gen.cont;
-        //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+        //gen.arquivo = "Arquivo_A";
+        gen.arquivo = seg;
+        //cin >> gen.cont;
+        gen.cont = "BATATA";
         populaPrevio();
-        create(oi,gen);
-
-        //salva();
-        //oi = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+        create(oi, gen);
     }
+        else if("cd" == oi){
+            char gen[20] = "Pasta_A";
+            strcpy(gen,seg.c_str());
+            populaPrevio();
+            if(logCD(gen) > -1){
+               cout<<"# "<<"HD1"<<"\\"<<gen<<">";
+            }
+            else{
+                puts("");
+                puts("pasta nao encontrada");
+            }
+        }
 
-    //zera();
-    //apaga();
-    //estrutura();
-    salva2();
-    //salva();
-
+        //zera();
+        //apaga();
+        salva2();
+    //}
     //system("pause");
+
     return 0;
 }
