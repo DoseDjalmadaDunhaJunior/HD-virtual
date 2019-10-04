@@ -39,7 +39,7 @@ void zera(){
                 txt[i][0] = '0';
                 txt[i][1] = '0';
             }
-            else if ((j == 0 || j == 1)&& i >= 21){
+            else if ((j == 0 || j == 1)&& i >= 20){
                 txt[i][0] = '0';
                 txt[i][1] = '1';
             }
@@ -131,11 +131,16 @@ int primeiroVago(){
     FILE* ler;
     ler = fopen(nomedoarquivo, "r");
     char oi;
-    int i;
-    for (i = 20; txt[i][0] != '0'; i++) {
-            fscanf(ler,"%c", &oi);
-            txt[i][0] = oi;
-        }
+    char v1;
+    char v2;
+    v1 = txt[20][0];
+    v2 = txt[21][0];
+    int i = 20;
+    while(txt[i][0] != '0'){
+        fscanf(ler,"%c", &oi);
+        txt[i][0] = oi;
+        i++;
+    }
     return i;
 }
 
@@ -175,6 +180,7 @@ int logCD(char* pasta){
 
 void create(string str,generico gen) {
     char temp[5] = {'0', '0', '0', '0', 0};
+    int g = primeiroVago();
     zera();
     populaPrevio();
     int i = 0;
@@ -220,7 +226,7 @@ void create(string str,generico gen) {
          int soma = mil+cen+dez+uni;
         soma++;
         */
-        int soma = (primeiroVago() + 1);
+        int soma = g+1;
         int ant;
         if (soma > 999) {
             ant = (soma / 1000);
@@ -277,15 +283,8 @@ void create(string str,generico gen) {
     for (int l = 16; l < 32; l++) {
         txt[i][l] = qwe[l - 16];
     }
-    for (int k = i; k < 20; k++) {
 
-    }
-
-    i = 20;
-    int g = i;
-    for (g; (g <= 1024) && (txt[g][0] == '1'); g++) {
-
-    }
+    cout<<"G= "<<g<<endl;
     txt[g][0] = '1';
     txt[g][1] = '1';
     txt[g][2] = ' ';
@@ -296,7 +295,6 @@ void create(string str,generico gen) {
     txt[g][7] = '2';
     txt[g][8] = '2';
     int Ctam = gen.cont.size();
-
     char *asd = const_cast<char *>(gen.cont.c_str());
     for (int l = 9; asd[l-9] != '\0'; l++) {
         if(Ctam > 23){
@@ -346,7 +344,7 @@ int main() {
     cout<<"#";
     //cin>>oi;
     //cin>>seg;
-    oi = "createhd hd1";
+    seg = "createhd";
     exit = oi;
     if("createhd" == seg){
         //oi = seg;
@@ -361,9 +359,9 @@ int main() {
     exit = io;
     //while(exit != "exit") {
         cout << "#" << oi << ">";
-    cin>>oi;
-    cin>>seg;
-    //oi = "mkdir";
+    //cin>>oi;
+    //cin>>seg;
+    oi = "create";
         if("mkdir" == oi){
             string dente;
             dente = seg;
@@ -372,10 +370,10 @@ int main() {
             createMK(oi, dente);
         }else if ("create" == oi) {
         generico gen;
-        //gen.arquivo = "Arquivo_A";
-        gen.arquivo = seg;
+        gen.arquivo = "Arquivo_A";
+        //gen.arquivo = seg;
         //cin >> gen.cont;
-        gen.cont = "BATATA";
+        gen.cont = "ALFACE";
         populaPrevio();
         create(oi, gen);
     }
