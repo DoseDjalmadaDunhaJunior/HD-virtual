@@ -92,10 +92,10 @@ int ConteudoLocal(int i){
 }
 
 void apaga() {
-    char kkk[16] = "Arquivo_B\0";
+    char kkk[16] = "Arquivo_A\0";
+    //cin>>kkk;
     int comp = 6;
     int ig = 0;
-
     int i,j;
     int rept = 0;
     for (i = 0; i < 20; i++) {
@@ -105,9 +105,15 @@ void apaga() {
             }
         }
         j++;
+        // aqui esta imprimindo apenas para o 1º caso, ver isso
         if((ig == (j - 17)) && rept == 0){
             txt[i][0] = '0';
-            txt[ConteudoLocal(i)][0] = '0';
+            char ola[5];
+            ola[0] =  txt[0][8];
+                  ola[1] =  txt[0][9];
+                  ola[2] = txt[0][10];
+                  ola[3] = txt[0][11];
+                  cout<<ola<<endl;
             rept = 1;
         }
         else{
@@ -283,28 +289,65 @@ void create(string str,generico gen) {
     for (int l = 16; l < 32; l++) {
         txt[i][l] = qwe[l - 16];
     }
-
-    cout<<"G= "<<g<<endl;
     txt[g][0] = '1';
     txt[g][1] = '1';
     txt[g][2] = ' ';
     txt[g][3] = ' ';
     txt[g][4] = '0';// deveria ter um zero a menos
     txt[g][5] = '0';
-    txt[g][6] = '0';
+    txt[g][6] = '2';
     txt[g][7] = '2';
-    txt[g][8] = '2';
     int Ctam = gen.cont.size();
+    int vet = 8;
+    int poMat = 8;
+    int contador = 1;
+    int anterior = g;
     char *asd = const_cast<char *>(gen.cont.c_str());
-    for (int l = 9; asd[l-9] != '\0'; l++) {
-        if(Ctam > 23){
-            Ctam = Ctam-23;
-            txt[g][(23 -(l-9))] = asd[l-9];
+    for (int l = 8; asd[l-8] != '\0'; l++) {
+        if(asd[vet - 8] == 32){
+            vet++;
         }
-        else{
-            txt[g][l] = asd[l-9];
+        if((l/contador) > 32){
+            contador++;
+            poMat = 8;
+            g++;
+            txt[g][0] = '1';
+            txt[g][1] = '1';
+            txt[g][2] = ' ';
+            txt[g][3] = ' ';
+            txt[g][4] = '0';// deveria ter um zero a menos
+            txt[g][5] = '0';
+            txt[g][6] = '0';
+            txt[g][7] = '0';
         }
+            txt[g][poMat] = asd[vet-8];
+        vet++;
+        poMat++;
     }
+
+    int aux = g;
+    if (aux > 999) {
+        ant = (anterior / 1000);
+        txt[anterior][4] = ant + '0';
+        aux = aux - (ant * 1000);
+    } else {
+        txt[aux][4] = '0';
+    }
+    if (aux > 99) {
+        ant = (anterior / 100);
+        txt[anterior][5] = (aux / 100) + '0';
+        aux = aux - (ant * 100);
+    } else {
+        txt[aux][5] = '0';
+    }
+    if (aux > 9) {
+        ant = (aux / 10);
+        txt[anterior][6] = (aux / 10) + '0';
+        aux = aux - (ant * 10);
+    } else {
+        txt[anterior][6] = '0';
+    }
+    txt[anterior][7] = aux + '0';
 }
 
 void createMK(string str,string gen) {
@@ -373,9 +416,10 @@ int main() {
         gen.arquivo = "Arquivo_A";
         //gen.arquivo = seg;
         //cin >> gen.cont;
-        gen.cont = "ALFACE";
+        gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+        //gen.cont = "A B";
         populaPrevio();
-        create(oi, gen);
+        //create(oi, gen);
     }
         else if("cd" == oi){
             char gen[20] = "Pasta_A";
@@ -391,7 +435,7 @@ int main() {
         }
 
         //zera();
-        //apaga();
+        apaga();
         salva2();
     //}
     //system("pause");
