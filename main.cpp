@@ -2,33 +2,15 @@
 #include <string>
 #include <stdio.h>
 
-//int p = atoi(h);
 using namespace std;
 using namespace std;
 char txt[1025][34];
-char nomedoarquivo[20] = "HD1.txt";
+char nomedoarquivo[20];
 
 struct generico{
     string cont;
     string arquivo;
 };
-
-void teste(){
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            txt[i][j] = (65 + i);
-        }
-    }
-    FILE* arq;
-    arq = fopen("HD1.txt", "w");
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            fprintf(arq,"%c", txt[i][j]);
-        }
-        fprintf(arq, "%c", '\n');
-    }
-    fclose(arq);
-}
 
 typedef struct generico generico;
 
@@ -56,13 +38,13 @@ void zera(){
 void populaPrevio(){
     FILE* ler;
     ler = fopen(nomedoarquivo, "r");
+    char *ver = nomedoarquivo;
     char oi;
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
             fscanf(ler,"%c", &oi);
             txt[i][j] = oi;
         }
-        //fgets(txt[i],100,ler);
     }
 }
 
@@ -91,12 +73,19 @@ int ConteudoLocal(int i){
     return soma;
 }
 
-void apagaConteudo(int po){
-txt[po][0] = '0';
+void apagaConteudo(int po) {
+    txt[po][0] = '0';
+    if (txt[(po + 1)][7] == '0') {
+        txt[(po + 1)][0] = '0';
+        if (txt[(po + 2)][7] == '0') {
+            txt[(po + 2)][0] = '0';
+
+        }
+    }
 }
 
 void apaga() {
-    char kkk[16] = "Arquivo_B\0";
+    char kkk[16] = "Arquivo_E\0";
     //cin>>kkk;
     int comp = 6;
     int ig = 0;
@@ -375,11 +364,13 @@ int main() {
     if("createhd" == seg){
         //oi = seg;
         //criar variavel fixa p/ oi
-        oi = "HD1";
+        oi = "HD1.txt";
         exit = oi;
-        for (int i = 0; i < sizeof(oi); i++) {
-            //nomedoarquivo[i] = oi[i];
+        int i;
+        for (i = 0; i < sizeof(oi); i++) {
+            nomedoarquivo[i] = oi[i];
         }
+
         createhd(oi);
     }
     exit = io;
@@ -396,13 +387,13 @@ int main() {
             createMK(oi, dente);
         }else if ("create" == oi) {
         generico gen;
-        gen.arquivo = "Arquivo_D";
+        gen.arquivo = "Arquivo_F";
         //gen.arquivo = seg;
         //cin >> gen.cont;
         //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
-        gen.cont = "CD";
+        gen.cont = "A B";
         populaPrevio();
-        create(oi, gen);
+        //create(oi, gen);
     }
         else if("cd" == oi){
             char gen[20] = "Pasta_A";
@@ -418,7 +409,7 @@ int main() {
         }
 
         //zera();
-        //apaga();
+        apaga();
         salva2();
     //}
     //system("pause");
