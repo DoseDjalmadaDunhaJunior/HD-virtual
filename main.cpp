@@ -91,32 +91,40 @@ int ConteudoLocal(int i){
     return soma;
 }
 
+void apagaConteudo(int po){
+txt[po][0] = '0';
+}
+
 void apaga() {
-    char kkk[16] = "Arquivo_A\0";
+    char kkk[16] = "Arquivo_B\0";
     //cin>>kkk;
     int comp = 6;
     int ig = 0;
-    int i,j;
+    int i, j;
     int rept = 0;
     for (i = 0; i < 20; i++) {
         for (j = 16; (j < 33 && txt[i][j] != 0); j++) {
-            if(kkk[j-16] == txt[i][j]){
+            if (kkk[j - 16] == txt[i][j]) {
                 ig++;
             }
         }
         j++;
         // aqui esta imprimindo apenas para o 1º caso, ver isso
-        if((ig == (j - 17)) && rept == 0){
+        if ((ig == (j - 17)) && rept == 0) {
             txt[i][0] = '0';
             char ola[5];
-            ola[0] =  txt[0][8];
-                  ola[1] =  txt[0][9];
-                  ola[2] = txt[0][10];
-                  ola[3] = txt[0][11];
-                  cout<<ola<<endl;
+            ola[0] = txt[i][8];
+            ola[1] = txt[i][9];
+            ola[2] = txt[i][10];
+            ola[3] = txt[i][11];
+            int ola2 = 0;
+            ola2 = (ola[0] - '0') * 1000;
+            ola2 = ola2 + ((ola[1] - '0') * 100);
+            ola2 = ola2 + ((ola[2] - '0') * 10);
+            ola2 = ola2 + ((ola[3] - '0'));
+            apagaConteudo((ola2-1));
             rept = 1;
-        }
-        else{
+        } else {
             ig = 0;
         }
     }
@@ -208,30 +216,6 @@ void create(string str,generico gen) {
         txt[i][10] = '2';
         txt[i][11] = '1';
     } else {
-        /*
-        int mil = 0,cen = 0,dez = 0,uni = 0;
-        if (txt[i-1][8] > '0') {
-            char y = txt[i-1][8];
-            mil = y - '0';
-            mil = mil*1000;
-        }
-        if(txt[i-1][9] > '0'){
-            char y = txt[i-1][9];
-            cen = y - '0';
-            cen = cen*100;
-        }
-        if(txt[i-1][10] > '0'){
-            char y = txt[i-1][10];
-            dez = y - '0';
-            dez = dez*10;
-        }
-        if(txt[i-1][11] > '0'){
-            char y = txt[i-1][11];
-            uni = y - '0';
-        }
-         int soma = mil+cen+dez+uni;
-        soma++;
-        */
         int soma = g+1;
         int ant;
         if (soma > 999) {
@@ -379,7 +363,6 @@ void createMK(string str,string gen) {
     }
 }
 
-
 int main() {
     string oi,io, exit,seg;
     string* pont;
@@ -413,13 +396,13 @@ int main() {
             createMK(oi, dente);
         }else if ("create" == oi) {
         generico gen;
-        gen.arquivo = "Arquivo_A";
+        gen.arquivo = "Arquivo_D";
         //gen.arquivo = seg;
         //cin >> gen.cont;
-        gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
-        //gen.cont = "A B";
+        //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
+        gen.cont = "CD";
         populaPrevio();
-        //create(oi, gen);
+        create(oi, gen);
     }
         else if("cd" == oi){
             char gen[20] = "Pasta_A";
@@ -435,7 +418,7 @@ int main() {
         }
 
         //zera();
-        apaga();
+        //apaga();
         salva2();
     //}
     //system("pause");
