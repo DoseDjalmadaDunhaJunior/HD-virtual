@@ -2,6 +2,10 @@
 #include <string>
 #include <stdio.h>
 
+
+/**
+ * no main tem uma funcao comentada chamada apagar, basta tirar o comentario para poder usa-la
+ */
 using namespace std;
 using namespace std;
 char txt[1025][34];
@@ -38,7 +42,6 @@ void zera(){
 void populaPrevio(){
     FILE* ler;
     ler = fopen(nomedoarquivo, "r");
-    char *ver = nomedoarquivo;
     char oi;
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
@@ -85,9 +88,9 @@ void apagaConteudo(int po) {
 }
 
 void apaga() {
-    char kkk[16] = "Arquivo_E\0";
-    //cin>>kkk;
-    int comp = 6;
+    char kkk[16];
+    puts("nome do arquivo");
+    cin>>kkk;
     int ig = 0;
     int i, j;
     int rept = 0;
@@ -98,7 +101,6 @@ void apaga() {
             }
         }
         j++;
-        // aqui esta imprimindo apenas para o 1º caso, ver isso
         if ((ig == (j - 17)) && rept == 0) {
             txt[i][0] = '0';
             char ola[5];
@@ -134,10 +136,6 @@ int primeiroVago(){
     FILE* ler;
     ler = fopen(nomedoarquivo, "r");
     char oi;
-    char v1;
-    char v2;
-    v1 = txt[20][0];
-    v2 = txt[21][0];
     int i = 20;
     while(txt[i][0] != '0'){
         fscanf(ler,"%c", &oi);
@@ -148,7 +146,6 @@ int primeiroVago(){
 }
 
 void createhd(string str){
-    //zera();
     populaPrevio();
     salva2();
 }
@@ -288,7 +285,7 @@ void create(string str,generico gen) {
             txt[g][1] = '1';
             txt[g][2] = ' ';
             txt[g][3] = ' ';
-            txt[g][4] = '0';// deveria ter um zero a menos
+            txt[g][4] = '0';
             txt[g][5] = '0';
             txt[g][6] = '0';
             txt[g][7] = '0';
@@ -334,10 +331,10 @@ void createMK(string str,string gen) {
     txt[i][1] = '0';
     txt[i][2] = '1';
     txt[i][3] = ' ';
-        txt[i][4] = '0';
-        txt[i][5] = '0';
-        txt[i][6] = '0';
-        txt[i][7] = '0';
+    txt[i][4] = '0';
+    txt[i][5] = '0';
+    txt[i][6] = '0';
+    txt[i][7] = '0';
     txt[i][8] = '0';
     txt[i][9] = '0';
     txt[i][10] = '0';
@@ -354,16 +351,13 @@ void createMK(string str,string gen) {
 
 int main() {
     string oi,io, exit,seg;
-    string* pont;
     zera();
     cout<<"#";
-    //cin>>oi;
-    //cin>>seg;
+    cin>>oi;
+    cin>>seg;
     seg = "createhd";
     exit = oi;
     if("createhd" == seg){
-        //oi = seg;
-        //criar variavel fixa p/ oi
         oi = "HD1.txt";
         exit = oi;
         int i;
@@ -374,11 +368,9 @@ int main() {
         createhd(oi);
     }
     exit = io;
-    //while(exit != "exit") {
         cout << "#" << oi << ">";
-    //cin>>oi;
-    //cin>>seg;
-    oi = "create";
+    cin>>oi;
+    cin>>seg;
         if("mkdir" == oi){
             string dente;
             dente = seg;
@@ -388,12 +380,9 @@ int main() {
         }else if ("create" == oi) {
         generico gen;
         gen.arquivo = "Arquivo_F";
-        //gen.arquivo = seg;
-        //cin >> gen.cont;
-        //gen.cont = "AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX AAAAAAAAAX";
-        gen.cont = "A B";
+        gen.arquivo = seg;
+        cin >> gen.cont;
         populaPrevio();
-        //create(oi, gen);
     }
         else if("cd" == oi){
             char gen[20] = "Pasta_A";
@@ -411,8 +400,7 @@ int main() {
         //zera();
         apaga();
         salva2();
-    //}
-    //system("pause");
 
+    system("pause");
     return 0;
 }
