@@ -374,22 +374,20 @@ int main() {
         if("mkdir" == oi){
             string dente;
             dente = seg;
-            dente = "Pasta_B";
             populaPrevio();
             createMK(oi, dente);
         }else if ("create" == oi) {
         generico gen;
-        gen.arquivo = "Arquivo_F";
         gen.arquivo = seg;
         cin >> gen.cont;
         populaPrevio();
     }
         else if("cd" == oi){
-            char gen[20] = "Pasta_A";
+            char gen[20];
             strcpy(gen,seg.c_str());
             populaPrevio();
             if(logCD(gen) > -1){
-               cout<<"# "<<"HD1"<<"\\"<<gen<<">";
+               cout<<"# "<<nomedoarquivo<<"\\"<<gen<<">";
             }
             else{
                 puts("");
