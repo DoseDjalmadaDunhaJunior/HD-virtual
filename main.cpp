@@ -10,6 +10,7 @@ using namespace std;
 using namespace std;
 char txt[1025][34];
 char nomedoarquivo[20];
+int posicaoDaPasta = 0;
 
 struct generico{
     string cont;
@@ -195,7 +196,7 @@ void create(string str,generico gen) {
     txt[i][4] = '0';
     txt[i][5] = '0';
     txt[i][6] = '0';
-    txt[i][7] = '0';
+    txt[i][7] = (posicaoDaPasta + '0');
     if (i == 0) {
         txt[i][8] = '0';
         txt[i][9] = '0';
@@ -334,7 +335,7 @@ void createMK(string str,string gen) {
     txt[i][4] = '0';
     txt[i][5] = '0';
     txt[i][6] = '0';
-    txt[i][7] = '0';
+    txt[i][7] = (posicaoDaPasta + '0');
     txt[i][8] = '0';
     txt[i][9] = '0';
     txt[i][10] = '0';
@@ -347,17 +348,18 @@ void createMK(string str,string gen) {
     for (int l = 16; l < 32; l++) {
         txt[i][l] = qwe[l - 16];
     }
+    posicaoDaPasta = i;
 }
 
 int main() {
-    string oi,io, exit,seg;
+    string oi, io, exit, seg;
     zera();
-    cout<<"#";
-    cin>>oi;
-    cin>>seg;
+    cout << "#";
+    //cin>>oi;
+    //cin>>seg;
     seg = "createhd";
     exit = oi;
-    if("createhd" == seg){
+    if ("createhd" == seg) {
         oi = "HD1.txt";
         exit = oi;
         int i;
@@ -368,37 +370,37 @@ int main() {
         createhd(oi);
     }
     exit = io;
-        cout << "#" << oi << ">";
-    cin>>oi;
-    cin>>seg;
-        if("mkdir" == oi){
-            string dente;
-            dente = seg;
-            populaPrevio();
-            createMK(oi, dente);
-        }else if ("create" == oi) {
+    cout << "#" << oi << ">";
+    //cin >> oi;
+    //cin >> seg;
+    oi = "create";
+    seg = "izabella_linda";
+    if ("mkdir" == oi) {
+        string dente;
+        dente = seg;
+        populaPrevio();
+        createMK(oi, dente);
+    } else if ("create" == oi) {
         generico gen;
         gen.arquivo = seg;
         cin >> gen.cont;
         populaPrevio();
-    }
-        else if("cd" == oi){
-            char gen[20];
-            strcpy(gen,seg.c_str());
-            populaPrevio();
-            if(logCD(gen) > -1){
-               cout<<"# "<<nomedoarquivo<<"\\"<<gen<<">";
-            }
-            else{
-                puts("");
-                puts("pasta nao encontrada");
-            }
+        create(oi,gen);
+    } else if ("cd" == oi) {
+        char gen[20];
+        strcpy(gen, seg.c_str());
+        populaPrevio();
+        if (logCD(gen) > -1) {
+            cout << "# " << nomedoarquivo << "\\" << gen << ">";
+        } else {
+            puts("");
+            puts("pasta nao encontrada");
         }
+    }
+    //zera();
+    //apaga();
+    salva2();
 
-        //zera();
-        apaga();
-        salva2();
-
-    system("pause");
+    //system("pause");
     return 0;
 }
