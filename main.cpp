@@ -369,38 +369,39 @@ int main() {
 
         createhd(oi);
     }
-    exit = io;
-    cout << "#" << oi << ">";
-    //cin >> oi;
-    //cin >> seg;
-    oi = "create";
-    seg = "izabella_linda";
-    if ("mkdir" == oi) {
-        string dente;
-        dente = seg;
-        populaPrevio();
-        createMK(oi, dente);
-    } else if ("create" == oi) {
-        generico gen;
-        gen.arquivo = seg;
-        cin >> gen.cont;
-        populaPrevio();
-        create(oi,gen);
-    } else if ("cd" == oi) {
-        char gen[20];
-        strcpy(gen, seg.c_str());
-        populaPrevio();
-        if (logCD(gen) > -1) {
-            cout << "# " << nomedoarquivo << "\\" << gen << ">";
-        } else {
-            puts("");
-            puts("pasta nao encontrada");
+    while((oi != "exit") && (io != "exit") && (seg != "exit") && (exit != "exit")) {
+        exit = io;
+        cout << "#" << oi << ">";
+        //cin >> oi;
+        //cin >> seg;
+        oi = "create";
+        if ("mkdir" == oi) {
+            string dente;
+            dente = seg;
+            populaPrevio();
+            createMK(oi, dente);
+        } else if ("create" == oi) {
+            generico gen;
+            gen.arquivo = seg;
+            cin >> oi;
+            gen.cont = oi;
+            populaPrevio();
+            create(oi, gen);
+        } else if ("cd" == oi) {
+            char gen[20];
+            strcpy(gen, seg.c_str());
+            populaPrevio();
+            if (logCD(gen) > -1) {
+                cout << "# " << nomedoarquivo << "\\" << gen << ">";
+            } else {
+                puts("");
+                puts("pasta nao encontrada");
+            }
         }
+        //zera();
+        apaga();
+        salva2();
     }
-    //zera();
-    //apaga();
-    salva2();
-
     //system("pause");
     return 0;
 }
