@@ -88,6 +88,40 @@ void apagaConteudo(int po) {
     }
 }
 
+int tamanho(char* gol){
+    int i;
+    for (i = 0; (gol[i] != 32) && (gol[i] != '\0') ; i++) {
+
+    }
+    return i;
+}
+
+//arrumar logica fixa
+int buscaLinha(char* str){
+    int i;
+    int ver = 0;
+    int ig = 0;
+
+    for (i = 0; (txt[i][0] != '0') && i < 20 ; i++) {
+        for (int j = 16; (j - 16) < tamanho(str); j++) {
+            if(j == 22 && i == 3){
+
+            }
+            if (str[j-16] == txt[i][j]) {
+                ig++;
+            }
+        }
+        ver = tamanho(str);
+        if(ig == tamanho(str)){
+            return i;
+        }
+        else{
+            ig = 0;
+        }
+    }
+    return -1;
+}
+
 void apaga() {
     char kkk[16];
     puts("nome do arquivo");
@@ -351,10 +385,50 @@ void createMK(string str,string gen) {
     posicaoDaPasta = i;
 }
 
-int main() {
-    string oi, io, exit, seg;
+void dir(char* victor){
     zera();
-    cout << "#";
+populaPrevio();
+//nome comeca na posicao 16 e termina na 32
+//4 a 7 qual pasta
+//12 a 15 tamanho do arquivo
+    int i = 0;
+    char po[19];
+    for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
+        po[i] = txt[i][7];
+    }
+    po[i] = '\0';
+    int ver = buscaLinha(victor);//7
+    int mil,cen,dez,uni,l;
+    for (int j = 0; txt[j][0] != '0' ; j++) {
+        if(txt[j][7] == (ver+'0')){
+            for (l = 16; txt[j][l] != 32; l++) {
+
+            }
+            for (int k = 16; (k-16) < (l-16); k++) {
+                if(txt[j][2] == '0' && txt[j][k] != 0) {
+                    cout << txt[j][k];
+                }else if(txt[j][2] == '1' && txt[j][k] != 0){
+                    cout << txt[j][k];
+                }
+
+            }
+            if(txt[j][2] == '0'){
+                mil = (txt[j][12]) - '0';
+                cen = (txt[j][13]) - '0';
+                dez = (txt[j][14]) - '0';
+                uni = txt[j][15] - '0';
+                cout<<" "<<(mil+cen+dez+uni)<<" bytes"<<endl;
+            }
+
+        }
+    }
+}
+
+int main() {
+    string oi, io, exit, seg,constante;
+    string antigo = "";
+    char gene[20] = " ";
+    zera();
     //cin>>oi;
     //cin>>seg;
     seg = "createhd";
@@ -366,15 +440,31 @@ int main() {
         for (i = 0; i < sizeof(oi); i++) {
             nomedoarquivo[i] = oi[i];
         }
-
         createhd(oi);
     }
+    char *qwe = const_cast<char *>(oi.c_str());
+    int j;
+    for (j = 0; qwe[j] != '.' ; j++) {
+
+    }
+    qwe[j] = 0;
+    constante = qwe;
+    int x = 0;
+    cout << "#" << constante << ">";
     while((oi != "exit") && (io != "exit") && (seg != "exit") && (exit != "exit")) {
         exit = io;
-        cout << "#" << oi << ">";
-        //cin >> oi;
-        //cin >> seg;
-        oi = "create";
+        if(x > 0) {
+            cout << "\n#" << constante<<antigo<<">";// mudar aqui
+        }
+
+        cin >> oi;
+        if(oi != "dir") {
+            cin >> seg;
+        }
+        else{
+            seg = " ";
+        }
+        //oi = "create";
         if ("mkdir" == oi) {
             string dente;
             dente = seg;
@@ -388,20 +478,41 @@ int main() {
             populaPrevio();
             create(oi, gen);
         } else if ("cd" == oi) {
-            char gen[20];
-            strcpy(gen, seg.c_str());
-            populaPrevio();
-            if (logCD(gen) > -1) {
-                cout << "# " << nomedoarquivo << "\\" << gen << ">";
-            } else {
-                puts("");
-                puts("pasta nao encontrada");
+            if(seg == ".."){
+                int i;
+                int k;
+                char *mko = const_cast<char *>(antigo.c_str());
+                for (i = 0; mko[i] !=  '\0'; i++) {
+
+                }
+                for (k = (i-1);mko[k] != '\\'; k--) {
+                    mko[k] = 0;
+                }
+                mko[k-1] = 0;
+            }else {
+                strcpy(gene, seg.c_str());
+                populaPrevio();
+                if (logCD(gene) > -1) {
+                    x = -1;
+                    antigo = antigo + "\\" + gene;
+                    cout << "#" << constante << antigo << ">";
+
+                } else {
+                    puts("");
+                    puts("pasta nao encontrada");
+                }
             }
         }
+        else if("dir" == oi){
+            dir(gene);
+        }
+
         //zera();
-        apaga();
+        //apaga();
         salva2();
+        x++;
     }
+
     //system("pause");
     return 0;
 }
