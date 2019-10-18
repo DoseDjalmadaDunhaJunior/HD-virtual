@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <stdio.h>
+#include <cstring>
 
 
 /**
@@ -424,7 +425,31 @@ populaPrevio();
     }
 }
 
+void existe(){
+    FILE* arq;
+    arq = fopen("HD1.txt", "r");
+    if(!arq) {
+        FILE* temp;
+        temp = fopen("HD1.txt", "w");
+        nomedoarquivo[0] = 'H';
+        nomedoarquivo[1] = 'D';
+        nomedoarquivo[2] = '1';
+        nomedoarquivo[3] = '.';
+        nomedoarquivo[4] = 't';
+        nomedoarquivo[5] = 'x';
+        nomedoarquivo[6] = 't';
+        nomedoarquivo[7] = '\0';
+        zera();
+        salva2();
+        fclose(temp);
+    }
+    else {
+        fclose(arq);
+    }
+}
+
 int main() {
+    existe();
     string oi, io, exit, seg,constante;
     string antigo = "";
     char gene[20] = " ";

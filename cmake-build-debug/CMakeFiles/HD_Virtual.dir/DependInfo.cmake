@@ -4,9 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/main.cpp" "/Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/cmake-build-debug/CMakeFiles/HD_Virtual.dir/main.cpp.o"
+  "/home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp" "/home/djalma/Desktop/sexto_semestre/HD-virtual/cmake-build-debug/CMakeFiles/HD_Virtual.dir/main.cpp.o"
   )
-set(CMAKE_CXX_COMPILER_ID "AppleClang")
+set(CMAKE_CXX_COMPILER_ID "GNU")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH

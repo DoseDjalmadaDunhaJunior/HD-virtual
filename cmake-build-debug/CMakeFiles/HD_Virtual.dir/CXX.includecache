@@ -6,11 +6,13 @@
 
 #IncludeRegexTransform: 
 
-/Volumes/HD_EXTERNO/paradas_de_algoritmo/Sexto _semestre/sistemas_operacionais/HD_Virtual/main.cpp
+/home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp
 iostream
 -
 string
 -
 stdio.h
+-
+cstring
 -
 
