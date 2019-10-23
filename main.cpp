@@ -448,9 +448,33 @@ void existe(){
     }
 }
 
+void type(char* lucas) {
+    zera();
+    populaPrevio();
+    int ig = 0;
+    int i, j;
+    int rept = 0;
+    for (i = 0; i < 20; i++) {
+        for (j = 16; (j < 33 && txt[i][j] != 0); j++) {
+            if (lucas[j - 16] == txt[i][j]) {
+                ig++;
+            }
+        }
+        j++;
+        if ((ig == (j - 17)) && rept == 0) {
+            for (int k = 0; txt[i][k] != 32; k++) {
+                cout<<txt[i][k];
+            }
+            rept = 1;
+        } else {
+            ig = 0;
+        }
+    }
+}
+
 int main() {
     existe();
-    string oi, io, exit, seg,constante;
+    string oi, io, exit, seg, constante;
     string antigo = "";
     char gene[20] = " ";
     zera();
@@ -469,24 +493,23 @@ int main() {
     }
     char *qwe = const_cast<char *>(oi.c_str());
     int j;
-    for (j = 0; qwe[j] != '.' ; j++) {
+    for (j = 0; qwe[j] != '.'; j++) {
 
     }
     qwe[j] = 0;
     constante = qwe;
     int x = 0;
     cout << "#" << constante << ">";
-    while((oi != "exit") && (io != "exit") && (seg != "exit") && (exit != "exit")) {
+    while ((oi != "exit") && (io != "exit") && (seg != "exit") && (exit != "exit")) {
         exit = io;
-        if(x > 0) {
-            cout << "\n#" << constante<<antigo<<">";// mudar aqui
+        if (x > 0) {
+            cout << "\n#" << constante << antigo << ">";// mudar aqui
         }
 
         cin >> oi;
-        if(oi != "dir") {
+        if (oi != "dir") {
             cin >> seg;
-        }
-        else{
+        } else {
             seg = " ";
         }
         //oi = "create";
@@ -503,18 +526,20 @@ int main() {
             populaPrevio();
             create(oi, gen);
         } else if ("cd" == oi) {
-            if(seg == ".."){
+            if (seg == "..") {
                 int i;
                 int k;
                 char *mko = const_cast<char *>(antigo.c_str());
-                for (i = 0; mko[i] !=  '\0'; i++) {
+                for (i = 0; mko[i] != '\0'; i++) {
 
                 }
-                for (k = (i-1);mko[k] != '\\'; k--) {
+                for (k = (i - 1); mko[k] != '\\'; k--) {
                     mko[k] = 0;
                 }
-                mko[k-1] = 0;
-            }else {
+                mko[k - 1] = 0;
+            } else if ("type" == oi) {
+
+            } else {
                 strcpy(gene, seg.c_str());
                 populaPrevio();
                 if (logCD(gene) > -1) {
@@ -527,8 +552,7 @@ int main() {
                     puts("pasta nao encontrada");
                 }
             }
-        }
-        else if("dir" == oi){
+        } else if ("dir" == oi) {
             dir(gene);
         }
 
@@ -536,8 +560,8 @@ int main() {
         //apaga();
         salva2();
         x++;
-    }
 
-    //system("pause");
-    return 0;
+        //system("pause");
+        return 0;
+    }
 }
