@@ -448,7 +448,7 @@ void existe(){
 }
 
 void imprimeConteudo(int po){
-    for (int i = 8; i < 30; i++) {
+    for (int i = 8; txt[po][i] != 32; i++) {
         cout<<txt[po][i];
     }
 }
