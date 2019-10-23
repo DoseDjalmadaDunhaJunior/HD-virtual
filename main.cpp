@@ -84,7 +84,6 @@ void apagaConteudo(int po) {
         txt[(po + 1)][0] = '0';
         if (txt[(po + 2)][7] == '0') {
             txt[(po + 2)][0] = '0';
-
         }
     }
 }
@@ -448,6 +447,13 @@ void existe(){
     }
 }
 
+void imprimeConteudo(int po){
+    for (int i = 8; i < 30; i++) {
+        cout<<txt[po][i];
+    }
+}
+
+//basicamente imprime no proprio terminal o que tem no arquivo
 void type(char* lucas) {
     zera();
     populaPrevio();
@@ -462,9 +468,18 @@ void type(char* lucas) {
         }
         j++;
         if ((ig == (j - 17)) && rept == 0) {
-            for (int k = 0; txt[i][k] != 32; k++) {
-                cout<<txt[i][k];
-            }
+            txt[i][0] = '0';
+            char ola[5];
+            ola[0] = txt[i][8];
+            ola[1] = txt[i][9];
+            ola[2] = txt[i][10];
+            ola[3] = txt[i][11];
+            int ola2 = 0;
+            ola2 = (ola[0] - '0') * 1000;
+            ola2 = ola2 + ((ola[1] - '0') * 100);
+            ola2 = ola2 + ((ola[2] - '0') * 10);
+            ola2 = ola2 + ((ola[3] - '0'));
+            imprimeConteudo((ola2-1));
             rept = 1;
         } else {
             ig = 0;
@@ -537,8 +552,6 @@ int main() {
                     mko[k] = 0;
                 }
                 mko[k - 1] = 0;
-            } else if ("type" == oi) {
-
             } else {
                 strcpy(gene, seg.c_str());
                 populaPrevio();
@@ -554,6 +567,10 @@ int main() {
             }
         } else if ("dir" == oi) {
             dir(gene);
+        }else if ("type" == oi) {
+            char temp[1024];
+            strcpy(temp, seg.c_str());
+            type(temp);
         }
 
         //zera();
