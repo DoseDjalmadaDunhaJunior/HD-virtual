@@ -424,20 +424,13 @@ populaPrevio();
     }
 }
 
-void existe(){
+void existe(char* hd){
     FILE* arq;
-    arq = fopen("HD1.txt", "r");
+    arq = fopen(hd, "r");
     if(!arq) {
         FILE* temp;
-        temp = fopen("HD1.txt", "w");
-        nomedoarquivo[0] = 'H';
-        nomedoarquivo[1] = 'D';
-        nomedoarquivo[2] = '1';
-        nomedoarquivo[3] = '.';
-        nomedoarquivo[4] = 't';
-        nomedoarquivo[5] = 'x';
-        nomedoarquivo[6] = 't';
-        nomedoarquivo[7] = '\0';
+        temp = fopen(hd, "w");
+        strcpy(nomedoarquivo, hd);
         zera();
         salva2();
         fclose(temp);
@@ -488,23 +481,25 @@ void type(char* lucas) {
 }
 
 int main() {
-    existe();
     string oi, io, exit, seg, constante;
     string antigo = "";
     char gene[20] = " ";
     zera();
-    //cin>>oi;
-    //cin>>seg;
-    seg = "createhd";
+    cin>>oi;
+    cin>>seg;
+    //seg = "createhd";
     exit = oi;
-    if ("createhd" == seg) {
-        oi = "HD1.txt";
+    if ("createhd" == oi) {
+        //oi = "HD1.txt";
+        strcpy(gene, seg.c_str());
+        existe(gene);
+        oi = gene;
         exit = oi;
         int i;
         for (i = 0; i < sizeof(oi); i++) {
             nomedoarquivo[i] = oi[i];
         }
-        createhd(oi);
+        createhd(seg);
     }
     char *qwe = const_cast<char *>(oi.c_str());
     int j;
