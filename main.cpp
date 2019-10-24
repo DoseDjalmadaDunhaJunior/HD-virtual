@@ -222,7 +222,6 @@ void create(string str,generico gen) {
     for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
 
     }
-    cout << txt[0][0] << endl;
     txt[i][0] = '1';
     txt[i][1] = '0';
     txt[i][2] = '0';
@@ -307,12 +306,17 @@ void create(string str,generico gen) {
     int poMat = 8;
     int contador = 1;
     int anterior = g;
+    int acom = 8;
     char *asd = const_cast<char *>(gen.cont.c_str());
     for (int l = 8; asd[l-8] != '\0'; l++) {
         if(asd[vet - 8] == 32){
             vet++;
         }
-        if((l/contador) > 32){
+        if(l > 50){
+
+        }
+        int x = contador;
+        if(acom > 32){
             contador++;
             poMat = 8;
             g++;
@@ -324,9 +328,16 @@ void create(string str,generico gen) {
             txt[g][5] = '0';
             txt[g][6] = '0';
             txt[g][7] = '0';
+            acom = 8;
         }
-            txt[g][poMat] = asd[vet-8];
+        if(x != contador){
+            txt[g][poMat] = 0;
+
+        }else {
+            txt[g][poMat] = asd[vet - 8];
+        }
         vet++;
+        acom++;
         poMat++;
     }
 
@@ -442,6 +453,11 @@ void existe(char* hd){
 
 void imprimeConteudo(int po){
     for (int i = 8; txt[po][i] != 32; i++) {
+        if(i == 31){
+            po++;
+            i = 8;
+            cout<<endl;
+        }
         cout<<txt[po][i];
     }
 }
@@ -461,7 +477,6 @@ void type(char* lucas) {
         }
         j++;
         if ((ig == (j - 17)) && rept == 0) {
-            txt[i][0] = '0';
             char ola[5];
             ola[0] = txt[i][8];
             ola[1] = txt[i][9];
@@ -574,6 +589,6 @@ int main() {
         x++;
 
         //system("pause");
-        return 0;
     }
+    return 0;
 }
