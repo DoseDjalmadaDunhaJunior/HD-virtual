@@ -53,31 +53,6 @@ void populaPrevio(){
     }
 }
 
-int ConteudoLocal(int i){
-    int mil = 0,cen = 0,dez = 0,uni = 0;
-    if (txt[i-1][8] > '0') {
-        char y = txt[i-1][8];
-        mil = y - '0';
-        mil = mil*1000;
-    }
-    if(txt[i-1][9] > '0'){
-        char y = txt[i-1][9];
-        cen = y - '0';
-        cen = cen*100;
-    }
-    if(txt[i-1][10] > '0'){
-        char y = txt[i-1][10];
-        dez = y - '0';
-        dez = dez*10;
-    }
-    if(txt[i-1][11] > '0'){
-        char y = txt[i-1][11];
-        uni = y - '0';
-    }
-    int soma = mil+cen+dez+uni;
-    return soma;
-}
-
 void apagaConteudo(int po) {
     txt[po][0] = '0';
     if (txt[(po + 1)][7] == '0') {
@@ -96,7 +71,6 @@ int tamanho(char* gol){
     return i;
 }
 
-//arrumar logica fixa
 int buscaLinha(char* str){
     int i;
     int ver = 0;
@@ -495,6 +469,22 @@ void type(char* lucas) {
     }
 }
 
+//para buscar itens numa pasta especifica
+int buscaNpasta(int n, char* term){
+
+}
+
+void copy(char* seg){
+    char termo1[100];
+    char termo2[100];
+    char origem[100];
+    cin>>termo2;
+    for (int i = 0; termo1[i] != '/'; i++) {
+        origem[i] = seg[i+1];
+    }
+    cout << buscaLinha(origem)<<endl;
+}
+
 int main() {
     string oi, io, exit, seg, constante;
     string antigo = "";
@@ -581,6 +571,11 @@ int main() {
             char temp[1024];
             strcpy(temp, seg.c_str());
             type(temp);
+        }
+        else if("copy" == oi){
+            char temp[200];
+            strcpy(temp, seg.c_str());
+            copy(temp);
         }
 
         //zera();
