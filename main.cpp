@@ -18,6 +18,16 @@ struct generico{
     string arquivo;
 };
 
+//8 ao 11
+int posicaoConteudo(int po) {
+    int mil = (txt[po][8] - '0');
+    int centena = (txt[po][9] - '0');
+    int dez = (txt[po][10] - '0');
+    int unidade = (txt[po][11] - '0');
+    int total = (1000*mil) + (100 * centena) + (10*dez) + unidade;
+    return total;
+}
+
 typedef struct generico generico;
 
 void zera(){
@@ -69,6 +79,16 @@ int tamanho(char* gol){
 
     }
     return i;
+}
+
+//12 ao 15
+int tamanhoSalvo(int po){
+    int mil = (txt[po][12] - '0');
+    int centena = (txt[po][13] - '0');
+    int dez = (txt[po][14] - '0');
+    int unidade = (txt[po][15] - '0');
+    int total = (1000*mil) + (100 * centena) + (10*dez) + unidade;
+    return total;
 }
 
 int buscaLinha(char* str){
@@ -270,7 +290,7 @@ void create(string str,generico gen) {
     txt[g][1] = '1';
     txt[g][2] = ' ';
     txt[g][3] = ' ';
-    txt[g][4] = '0';// deveria ter um zero a menos
+    txt[g][4] = '0';
     txt[g][5] = '0';
     txt[g][6] = '2';
     txt[g][7] = '2';
@@ -468,6 +488,18 @@ void type(char* lucas) {
     }
 }
 
+void copiaConteudo(char* cont, int linha) {
+    int l = posicaoConteudo(linha);
+    //txt[l][8];
+    for (int i = 8; i < tamanhoSalvo(linha); i++) {
+        //inicialmente farei para apenas 1 linha
+        if (txt[l][i] == 32) {
+            cont[i-8] = txt[l][i];
+        }
+    }
+    cout<<cont<<endl;
+}
+
 //para buscar itens numa pasta especifica
 int buscaNpasta(int n, char* term){
     int i;
@@ -505,8 +537,10 @@ void copy(char* seg) {
     for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')); j++) {
 
     }
-    cout<<txt[j][7]<<endl;
-    cout<<tempo<<endl;
+
+    copiaConteudo(tempo,j);
+    //cout<<txt[j][7]<<endl;
+    //cout<<tempo<<endl;
 
     //cout << buscaLinha(origem) << endl;
 }
