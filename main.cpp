@@ -85,7 +85,6 @@ int buscaLinha(char* str){
                 ig++;
             }
         }
-        ver = tamanho(str);
         if(ig == tamanho(str)){
             return i;
         }
@@ -471,18 +470,45 @@ void type(char* lucas) {
 
 //para buscar itens numa pasta especifica
 int buscaNpasta(int n, char* term){
+    int i;
+    int ver = 0;
+    int ig = 0;
+    for (i = 0; (txt[i][0] != '0') && i < 20 ; i++) {
+    if(txt[i][7] == (n+'0')){
 
+    }
+        if(ig == tamanho(term)){
+            return i;
+        }
+        else{
+            ig = 0;
+        }
+    }
+    return -1;
 }
 
-void copy(char* seg){
+void copy(char* seg) {
     char termo1[100];
     char termo2[100];
     char origem[100];
-    cin>>termo2;
-    for (int i = 0; termo1[i] != '/'; i++) {
-        origem[i] = seg[i+1];
+    int i = 0;
+    cin >> termo2;
+    //while(seg[i] != 0){
+    for (i = 1; seg[i] != '/'; i++) {
+        origem[i-1] = seg[i];
     }
-    cout << buscaLinha(origem)<<endl;
+    //}
+    origem[i-1] = 0;
+    //cout << buscaLinha(origem) << endl;
+    char tempo[100];
+    int j;
+    for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')); j++) {
+
+    }
+    cout<<txt[j][7]<<endl;
+    cout<<tempo<<endl;
+
+    //cout << buscaLinha(origem) << endl;
 }
 
 int main() {
@@ -490,12 +516,14 @@ int main() {
     string antigo = "";
     char gene[20] = " ";
     zera();
-    cin>>oi;
-    cin>>seg;
+    //cin>>oi;
+    //cin>>seg;
+    oi = "createhd";
+    seg = "HD1";
     //seg = "createhd";
     exit = oi;
     if ("createhd" == oi) {
-        //oi = "HD1.txt";
+        oi = "HD1.txt";
         strcpy(gene, seg.c_str());
         existe(gene);
         oi = gene;
