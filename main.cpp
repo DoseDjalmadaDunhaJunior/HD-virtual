@@ -520,6 +520,18 @@ int buscaNpasta(int n, char* term){
     return -1;
 }
 
+int contBarra(char* segurar){
+    int c = 0;
+    for (int i = 0; (segurar[i] != 0); i++) {
+        if(segurar[i] == '/'){
+            c++;
+        }
+    }
+    return c;
+}
+
+
+// a variavel ultraFarma já esta praticamente certinha para gravar no lugar certo
 void copy(char* seg) {
     populaPrevio();
     char termo1[100];
@@ -530,17 +542,40 @@ void copy(char* seg) {
     //aqui é tudo relacionado a 1ª parcela
     //while(seg[i] != 0){
     for (i = 1; seg[i] != '/'; i++) {
-        origem[i-1] = seg[i];
+        origem[i - 1] = seg[i];
     }
     //}
-    origem[i-1] = 0;
+    origem[i - 1] = 0;
     //cout << buscaLinha(origem) << endl;
     char tempo[100];
     int j;
-    for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')); j++) {
+    for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')) && (j < 20); j++) {
 
     }
-    copiaConteudo(tempo,j);
+    if (j < 20) {
+        copiaConteudo(tempo, j);
+        //a partir daqui é relacionado a 2ª parcela
+        char arq[100];
+        //cout << termo2;
+        int c = contBarra(termo2), andado = 0;
+        for (int k = 0; termo2[k] != 0; k++) {
+            if (c == 0) {
+                arq[k-andado] = termo2[k];
+            }
+            else{
+                andado++;
+                if(termo2[k] == '/'){
+                    c--;
+                }
+            }
+        }
+        generico ultraFarma;
+        ultraFarma.arquivo = arq;
+        ultraFarma.cont = tempo;
+        cout<<tempo;
+    } else {
+        cout << "alguma informação invalida" << endl;
+    }
 
 }
 
