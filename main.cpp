@@ -488,16 +488,17 @@ void type(char* lucas) {
     }
 }
 
+//copia o conteudo de um arquivo a partir da sua linha
 void copiaConteudo(char* cont, int linha) {
-    int l = posicaoConteudo(linha);
-    //txt[l][8];
-    for (int i = 8; i < tamanhoSalvo(linha); i++) {
+    int l = posicaoConteudo(linha) - 1;
+    int gg = tamanhoSalvo(linha);
+    for (int i = 8; i < gg; i++) {
         //inicialmente farei para apenas 1 linha
         if (txt[l][i] == 32) {
-            cont[i-8] = txt[l][i];
+            cont[i-8] = 0;
         }
+        cont[i-8] = txt[l][i];
     }
-    cout<<cont<<endl;
 }
 
 //para buscar itens numa pasta especifica
@@ -520,11 +521,13 @@ int buscaNpasta(int n, char* term){
 }
 
 void copy(char* seg) {
+    populaPrevio();
     char termo1[100];
     char termo2[100];
     char origem[100];
     int i = 0;
     cin >> termo2;
+    //aqui é tudo relacionado a 1ª parcela
     //while(seg[i] != 0){
     for (i = 1; seg[i] != '/'; i++) {
         origem[i-1] = seg[i];
@@ -537,12 +540,8 @@ void copy(char* seg) {
     for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')); j++) {
 
     }
-
     copiaConteudo(tempo,j);
-    //cout<<txt[j][7]<<endl;
-    //cout<<tempo<<endl;
 
-    //cout << buscaLinha(origem) << endl;
 }
 
 int main() {
