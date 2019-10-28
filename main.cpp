@@ -555,8 +555,162 @@ int logicaPode(char* vetor){
     cout<<po<<endl;
     return po;
 }
-// a variavel ultraFarma já esta praticamente certinha para gravar no lugar certo
 
+void salvaDireto(generico azul,int past){
+    char temp[5] = {'0', '0', '0', '0', 0};
+    int g = primeiroVago();
+    zera();
+    populaPrevio();
+    int i = 0;
+    for (i = 0; (i <= 1024) && (txt[i][0] == '1'); i++) {
+
+    }
+    posicaoDaPasta = past;
+    txt[i][0] = '1';
+    txt[i][1] = '0';
+    txt[i][2] = '0';
+    txt[i][3] = ' ';
+    txt[i][4] = '0';
+    txt[i][5] = '0';
+    txt[i][6] = '0';
+    txt[i][7] = (posicaoDaPasta + '0');
+    if (i == 0) {
+        txt[i][8] = '0';
+        txt[i][9] = '0';
+        txt[i][10] = '2';
+        txt[i][11] = '1';
+    } else {
+        int soma = g+1;
+        int ant;
+        if (soma > 999) {
+            ant = (soma / 1000);
+            temp[0] = ant + '0';
+            soma = soma - (ant * 1000);
+        }
+        if (soma > 99) {
+            ant = (soma / 100);
+            temp[1] = (soma / 100) + '0';
+            soma = soma - (ant * 100);
+        }
+        if (soma > 9) {
+            ant = (soma / 10);
+            temp[2] = (soma / 10) + '0';
+            soma = soma - (ant * 10);
+        }
+        soma = soma;
+        temp[3] = soma + '0';
+        txt[i][8] = temp[0];
+        txt[i][9] = temp[1];
+        txt[i][10] = temp[2];
+        txt[i][11] = temp[3];
+    }
+    int tint = azul.cont.size();
+    int ant = 0;
+    if (tint > 999) {
+        ant = (tint / 1000);
+        temp[0] = ant + '0';
+        tint = tint - (ant * 1000);
+    } else {
+        temp[0] = '0';
+    }
+    if (tint > 99) {
+        ant = (tint / 100);
+        temp[1] = (tint / 100) + '0';
+        tint = tint - (ant * 100);
+    } else {
+        temp[1] = '0';
+    }
+    if (tint > 9) {
+        ant = (tint / 10);
+        temp[2] = (tint / 10) + '0';
+        tint = tint - (ant * 10);
+    } else {
+        temp[2] = '0';
+    }
+    tint = tint;
+    temp[3] = tint + '0';
+    txt[i][12] = temp[0];
+    txt[i][13] = temp[1];
+    txt[i][14] = temp[2];
+    txt[i][15] = temp[3];
+    char *qwe = const_cast<char *>(azul.arquivo.c_str());
+    for (int l = 16; l < 32; l++) {
+        txt[i][l] = qwe[l - 16];
+    }
+    txt[g][0] = '1';
+    txt[g][1] = '1';
+    txt[g][2] = ' ';
+    txt[g][3] = ' ';
+    txt[g][4] = '0';
+    txt[g][5] = '0';
+    txt[g][6] = '2';
+    txt[g][7] = '2';
+    int Ctam = azul.cont.size();
+    int vet = 8;
+    int poMat = 8;
+    int contador = 1;
+    int anterior = g;
+    int acom = 8;
+    char *asd = const_cast<char *>(azul.cont.c_str());
+    for (int l = 8; asd[l-8] != '\0'; l++) {
+        if(asd[vet - 8] == 32){
+            vet++;
+        }
+        if(l > 50){
+
+        }
+        int x = contador;
+        if(acom > 32){
+            contador++;
+            poMat = 8;
+            g++;
+            txt[g][0] = '1';
+            txt[g][1] = '1';
+            txt[g][2] = ' ';
+            txt[g][3] = ' ';
+            txt[g][4] = '0';
+            txt[g][5] = '0';
+            txt[g][6] = '0';
+            txt[g][7] = '0';
+            acom = 8;
+        }
+        if(x != contador){
+            txt[g][poMat] = 0;
+
+        }else {
+            txt[g][poMat] = asd[vet - 8];
+        }
+        vet++;
+        acom++;
+        poMat++;
+    }
+
+    int aux = g;
+    if (aux > 999) {
+        ant = (anterior / 1000);
+        txt[anterior][4] = ant + '0';
+        aux = aux - (ant * 1000);
+    } else {
+        txt[aux][4] = '0';
+    }
+    if (aux > 99) {
+        ant = (anterior / 100);
+        txt[anterior][5] = (aux / 100) + '0';
+        aux = aux - (ant * 100);
+    } else {
+        txt[aux][5] = '0';
+    }
+    if (aux > 9) {
+        ant = (aux / 10);
+        txt[anterior][6] = (aux / 10) + '0';
+        aux = aux - (ant * 10);
+    } else {
+        txt[anterior][6] = '0';
+    }
+    txt[anterior][7] = aux + '0';
+}
+
+// a variavel ultraFarma já esta praticamente certinha para gravar no lugar certo
 void copy(char* seg) {
     populaPrevio();
     char termo2[100];
@@ -577,12 +731,14 @@ void copy(char* seg) {
     if (j < 20) {
         copiaConteudo(tempo, j);
         //a partir daqui é relacionado a 2ª parcela
+
+        int pastaFinal = logicaPode(termo2);
         char arq[100];
         int c = contBarra(termo2), andado = 0,andandoMeio = 0;
         for (int k = 0; termo2[k] != 0; k++) {
             //aqui ele identifica quando vai chegar no nome do arquivo de copia
             if (c == 0) {
-                int x = andado+andandoMeio;
+                int x = andado;
                 arq[k-x] = termo2[k];
             }
             else{
@@ -595,7 +751,7 @@ void copy(char* seg) {
         generico ultraFarma;
         ultraFarma.arquivo = arq;
         ultraFarma.cont = tempo;
-        cout<<arq<<endl;
+        salvaDireto(ultraFarma,pastaFinal);
     } else {
         cout << "alguma informação invalida" << endl;
     }
