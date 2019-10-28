@@ -91,11 +91,11 @@ int tamanhoSalvo(int po){
     return total;
 }
 
+//busca a linha que tem o arquivo mandado
 int buscaLinha(char* str){
     int i;
     int ver = 0;
     int ig = 0;
-
     for (i = 0; (txt[i][0] != '0') && i < 20 ; i++) {
         for (int j = 16; (j - 16) < tamanho(str); j++) {
             if(j == 22 && i == 3){
@@ -530,23 +530,45 @@ int contBarra(char* segurar){
     return c;
 }
 
-
+/*basicamente essa função é para o copy, vai ver se a
+ * logica das pastas ate o arquivo é permitida ou tem algum erro
+ * ou seja ja vai direto para onde importa
+ */
+int logicaPode(char* vetor){
+    int n = contBarra(vetor), c =0;
+    int po = -1, poAnt = -1,j,i;
+    char copia[100];
+    for (i = 1; i < n ; i++) {
+        for (j = i; (vetor[j] != '/') && (vetor[j] != 0); j++) {
+            copia[j-i] = vetor[j];
+        }
+        if(vetor[j] == 0){
+            copia[j-i] = 0;
+        }
+        i = j;
+        poAnt = po;
+        po = buscaLinha(copia);
+        if(posicaoConteudo(po) != poAnt && poAnt != -1){
+            return -1;
+        }
+    }
+    cout<<po<<endl;
+    return po;
+}
 // a variavel ultraFarma já esta praticamente certinha para gravar no lugar certo
+
 void copy(char* seg) {
     populaPrevio();
-    char termo1[100];
     char termo2[100];
     char origem[100];
     int i = 0;
     cin >> termo2;
     //aqui é tudo relacionado a 1ª parcela
-    //while(seg[i] != 0){
+    logicaPode(seg);
     for (i = 1; seg[i] != '/'; i++) {
         origem[i - 1] = seg[i];
     }
-    //}
     origem[i - 1] = 0;
-    //cout << buscaLinha(origem) << endl;
     char tempo[100];
     int j;
     for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')) && (j < 20); j++) {
@@ -556,11 +578,12 @@ void copy(char* seg) {
         copiaConteudo(tempo, j);
         //a partir daqui é relacionado a 2ª parcela
         char arq[100];
-        //cout << termo2;
-        int c = contBarra(termo2), andado = 0;
+        int c = contBarra(termo2), andado = 0,andandoMeio = 0;
         for (int k = 0; termo2[k] != 0; k++) {
+            //aqui ele identifica quando vai chegar no nome do arquivo de copia
             if (c == 0) {
-                arq[k-andado] = termo2[k];
+                int x = andado+andandoMeio;
+                arq[k-x] = termo2[k];
             }
             else{
                 andado++;
@@ -572,7 +595,7 @@ void copy(char* seg) {
         generico ultraFarma;
         ultraFarma.arquivo = arq;
         ultraFarma.cont = tempo;
-        cout<<tempo;
+        cout<<arq<<endl;
     } else {
         cout << "alguma informação invalida" << endl;
     }
