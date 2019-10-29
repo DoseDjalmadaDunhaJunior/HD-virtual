@@ -493,19 +493,21 @@ void type(char* lucas) {
 void copiaConteudo(char* cont, int linha) {
     int l = posicaoConteudo(linha) - 1;
     int gg = tamanhoSalvo(linha);
-    int tamFalta = gg;
+    int tamFalta = gg,jafoi = 8,c = 0;
     for (int i = 8; (tamFalta > 0); i++) {
-        //inicialmente farei para apenas 1 linha
-        if (txt[l][i] == 32) {
-            cont[i-8] = 0;
-        }
-        else if(i == 32){
+        if(i == 32){
             i = 8;
             l++;
         }
-        cont[i-8] = txt[l][i];
-        tamFalta--;
+        else {
+            cont[c] = txt[l][i];
+            tamFalta--;
+            c++;
+            jafoi++;
+        }
     }
+    cont[c] = 0;
+    cout<<cont<<endl;
 }
 
 //para buscar itens numa pasta especifica
