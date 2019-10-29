@@ -53,7 +53,8 @@ void zera(){
 
 void populaPrevio(){
     FILE* ler;
-    ler = fopen(nomedoarquivo, "r");
+    //ler = fopen(nomedoarquivo, "r");
+    ler = fopen("HD1", "r");
     char oi;
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
@@ -492,12 +493,18 @@ void type(char* lucas) {
 void copiaConteudo(char* cont, int linha) {
     int l = posicaoConteudo(linha) - 1;
     int gg = tamanhoSalvo(linha);
-    for (int i = 8; i < gg; i++) {
+    int tamFalta = gg;
+    for (int i = 8; (tamFalta > 0); i++) {
         //inicialmente farei para apenas 1 linha
         if (txt[l][i] == 32) {
             cont[i-8] = 0;
         }
+        else if(i == 32){
+            i = 8;
+            l++;
+        }
         cont[i-8] = txt[l][i];
+        tamFalta--;
     }
 }
 
@@ -860,5 +867,6 @@ int main() {
 
         //system("pause");
     }
+
     return 0;
 }
