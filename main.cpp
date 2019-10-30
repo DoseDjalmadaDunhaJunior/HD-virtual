@@ -707,18 +707,28 @@ void copy(char* seg) {
     int i = 0;
     cin >> termo2;
     //aqui é tudo relacionado a 1ª parcela
-    logicaPode(seg);
-    for (i = 1; seg[i] != '/'; i++) {
-        origem[i - 1] = seg[i];
-    }
-    origem[i - 1] = 0;
-    char tempo[100];
-    int j;
-    for (j = 0; (txt[j][7] != (buscaLinha(origem) + '0')) && (j < 20); j++) {
+    if(logicaPode(seg) != -1){
+        int b1 = contBarra(seg);
+        int base = 0;
+        int po = 0,j;
+        while(base < b1){
+            if(seg[po] == '/') {
+                base++;
+            }
+            po++;
+        }
 
+        for (j = po; seg[j] != 0 ; j++) {
+            origem[j-po] = seg[j];
+        }
+        origem[j-po] = 0;
     }
-    if (j < 20) {
-        copiaConteudo(tempo, j);
+    else{
+        cout<<"pasta ou arquivo não encontrados"<<endl;
+    }
+    char tempo[100];
+        copiaConteudo(tempo, buscaLinha(origem));
+        char ver = tempo[3];
         //a partir daqui é relacionado a 2ª parcela
         int pastaFinal = logicaPode(termo2);
         char arq[100];
@@ -740,10 +750,6 @@ void copy(char* seg) {
         ultraFarma.arquivo = arq;
         ultraFarma.cont = tempo;
         salvaDireto(ultraFarma,pastaFinal);
-    } else {
-        cout << "alguma informação invalida" << endl;
-    }
-
 }
 
 int main() {
@@ -843,7 +849,7 @@ int main() {
 
         //zera();
         //apaga();
-        salva2();
+        //salva2();
         x++;
 
         //system("pause");
