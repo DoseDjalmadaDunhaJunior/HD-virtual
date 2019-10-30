@@ -510,25 +510,6 @@ void copiaConteudo(char* cont, int linha) {
     cout<<cont<<endl;
 }
 
-//para buscar itens numa pasta especifica
-int buscaNpasta(int n, char* term){
-    int i;
-    int ver = 0;
-    int ig = 0;
-    for (i = 0; (txt[i][0] != '0') && i < 20 ; i++) {
-    if(txt[i][7] == (n+'0')){
-
-    }
-        if(ig == tamanho(term)){
-            return i;
-        }
-        else{
-            ig = 0;
-        }
-    }
-    return -1;
-}
-
 int contBarra(char* segurar){
     int c = 0;
     for (int i = 0; (segurar[i] != 0); i++) {
@@ -544,7 +525,7 @@ int contBarra(char* segurar){
  * ou seja ja vai direto para onde importa
  */
 int logicaPode(char* vetor){
-    int n = contBarra(vetor), c =0;
+    int n = contBarra(vetor);
     int po = -1, poAnt = -1,j,i;
     char copia[100];
     for (i = 1; i < n ; i++) {
@@ -561,7 +542,6 @@ int logicaPode(char* vetor){
             return -1;
         }
     }
-    cout<<po<<endl;
     return po;
 }
 
@@ -740,7 +720,6 @@ void copy(char* seg) {
     if (j < 20) {
         copiaConteudo(tempo, j);
         //a partir daqui é relacionado a 2ª parcela
-
         int pastaFinal = logicaPode(termo2);
         char arq[100];
         int c = contBarra(termo2), andado = 0,andandoMeio = 0;
