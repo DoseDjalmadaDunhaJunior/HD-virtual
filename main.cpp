@@ -303,14 +303,12 @@ void create(string str,generico gen) {
     int acom = 8;
     char *asd = const_cast<char *>(gen.cont.c_str());
     for (int l = 8; asd[l-8] != '\0'; l++) {
-        if(asd[vet - 8] == 32){
+        //aqui
+        if(asd[vet - 8] == 33){
             vet++;
         }
-        if(l > 50){
-
-        }
         int x = contador;
-        if(acom > 32){
+        if(acom >= 32){
             contador++;
             poMat = 8;
             g++;
@@ -326,7 +324,6 @@ void create(string str,generico gen) {
         }
         if(x != contador){
             txt[g][poMat] = 0;
-
         }else {
             txt[g][poMat] = asd[vet - 8];
         }
@@ -495,7 +492,8 @@ void copiaConteudo(char* cont, int linha) {
     int gg = tamanhoSalvo(linha);
     int tamFalta = gg,jafoi = 8,c = 0;
     for (int i = 8; (tamFalta > 0); i++) {
-        if(i == 32){
+        if(txt[l][i] == '\n'){
+            cont[c] = txt[l][i];
             i = 8;
             l++;
         }
@@ -507,7 +505,7 @@ void copiaConteudo(char* cont, int linha) {
         }
     }
     cont[c] = 0;
-    cout<<cont<<endl;
+
 }
 
 int contBarra(char* segurar){
@@ -642,14 +640,11 @@ void salvaDireto(generico azul,int past){
     int acom = 8;
     char *asd = const_cast<char *>(azul.cont.c_str());
     for (int l = 8; asd[l-8] != '\0'; l++) {
-        if(asd[vet - 8] == 32){
+        if(asd[vet - 8] == 33){
             vet++;
         }
-        if(l > 50){
-
-        }
         int x = contador;
-        if(acom > 32){
+        if(acom >= 32){
             contador++;
             poMat = 8;
             g++;
@@ -707,7 +702,7 @@ void copy(char* seg) {
     int i = 0;
     cin >> termo2;
     //aqui é tudo relacionado a 1ª parcela
-    if(logicaPode(seg) != -1){
+    //if(logicaPode(seg) != -1){
         int b1 = contBarra(seg);
         int base = 0;
         int po = 0,j;
@@ -722,18 +717,15 @@ void copy(char* seg) {
             origem[j-po] = seg[j];
         }
         origem[j-po] = 0;
-    }
-    else{
-        cout<<"pasta ou arquivo não encontrados"<<endl;
-    }
+
     char tempo[100];
         copiaConteudo(tempo, buscaLinha(origem));
-        char ver = tempo[3];
+        char ver = tempo[2];
         //a partir daqui é relacionado a 2ª parcela
         int pastaFinal = logicaPode(termo2);
         char arq[100];
         int c = contBarra(termo2), andado = 0,andandoMeio = 0;
-        for (int k = 0; termo2[k] != 0; k++) {
+        for (int k = 0; (termo2[k-1] != 0); k++) {
             //aqui ele identifica quando vai chegar no nome do arquivo de copia
             if (c == 0) {
                 int x = andado;
@@ -749,6 +741,7 @@ void copy(char* seg) {
         generico ultraFarma;
         ultraFarma.arquivo = arq;
         ultraFarma.cont = tempo;
+        cout<<arq<<endl;
         salvaDireto(ultraFarma,pastaFinal);
 }
 
@@ -761,7 +754,6 @@ int main() {
     //cin>>seg;
     oi = "createhd";
     seg = "HD1";
-    //seg = "createhd";
     exit = oi;
     if ("createhd" == oi) {
         oi = "HD1.txt";
@@ -849,7 +841,7 @@ int main() {
 
         //zera();
         //apaga();
-        //salva2();
+        salva2();
         x++;
 
         //system("pause");
