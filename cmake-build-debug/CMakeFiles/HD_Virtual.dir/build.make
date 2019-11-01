@@ -60,15 +60,15 @@ include CMakeFiles/HD_Virtual.dir/flags.make
 CMakeFiles/HD_Virtual.dir/main.cpp.o: CMakeFiles/HD_Virtual.dir/flags.make
 CMakeFiles/HD_Virtual.dir/main.cpp.o: ../main.cpp
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/djalma/Desktop/sexto_semestre/HD-virtual/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/HD_Virtual.dir/main.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HD_Virtual.dir/main.cpp.o -c /home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp
+	/usr/bin/g++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/HD_Virtual.dir/main.cpp.o -c /home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp
 
 CMakeFiles/HD_Virtual.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/HD_Virtual.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp > CMakeFiles/HD_Virtual.dir/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp > CMakeFiles/HD_Virtual.dir/main.cpp.i
 
 CMakeFiles/HD_Virtual.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/HD_Virtual.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp -o CMakeFiles/HD_Virtual.dir/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/djalma/Desktop/sexto_semestre/HD-virtual/main.cpp -o CMakeFiles/HD_Virtual.dir/main.cpp.s
 
 # Object files for target HD_Virtual
 HD_Virtual_OBJECTS = \

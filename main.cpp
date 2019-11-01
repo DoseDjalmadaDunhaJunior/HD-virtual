@@ -390,6 +390,7 @@ void createMK(string str,string gen) {
 void dir(char* victor){
     zera();
 populaPrevio();
+cout<<victor<<endl;
 //nome comeca na posicao 16 e termina na 32
 //4 a 7 qual pasta
 //12 a 15 tamanho do arquivo
@@ -746,17 +747,18 @@ void copy(char* seg) {
 }
 
 int main() {
-    string oi, io, exit, seg, constante;
+    string oi, io, exit, seg = "", constante;
     string antigo = "";
     char gene[20] = " ";
     zera();
     //cin>>oi;
-    //cin>>seg;
     oi = "createhd";
-    seg = "HD1";
     exit = oi;
+    if(oi != "dir"){
+        //cin>>seg;
+        seg = "HD1";
+    }
     if ("createhd" == oi) {
-        oi = "HD1.txt";
         strcpy(gene, seg.c_str());
         existe(gene);
         oi = gene;
@@ -813,6 +815,7 @@ int main() {
                     mko[k] = 0;
                 }
                 mko[k - 1] = 0;
+                antigo = "";
             } else {
                 strcpy(gene, seg.c_str());
                 populaPrevio();
@@ -827,7 +830,7 @@ int main() {
                 }
             }
         } else if ("dir" == oi) {
-            dir(gene);
+            //dir(gene);
         }else if ("type" == oi) {
             char temp[1024];
             strcpy(temp, seg.c_str());

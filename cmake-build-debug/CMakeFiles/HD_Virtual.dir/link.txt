@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/HD_Virtual.dir/main.cpp.o  -o HD_Virtual 
+/usr/bin/g++  -g   CMakeFiles/HD_Virtual.dir/main.cpp.o  -o HD_Virtual 
