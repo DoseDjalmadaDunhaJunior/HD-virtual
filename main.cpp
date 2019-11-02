@@ -18,6 +18,15 @@ struct generico{
     string arquivo;
 };
 
+typedef struct generico generico;
+
+struct posicaoAtual{
+    int anterior = 0;
+    int atual = 0;
+};
+
+typedef struct posicaoAtual posicaoAtual;
+
 //8 ao 11
 int posicaoConteudo(int po) {
     int mil = (txt[po][8] - '0');
@@ -27,8 +36,6 @@ int posicaoConteudo(int po) {
     int total = (1000*mil) + (100 * centena) + (10*dez) + unidade;
     return total;
 }
-
-typedef struct generico generico;
 
 void separaParcela(string a,char* b1,char* b2){
     strcpy(b1, a.c_str());
@@ -227,6 +234,7 @@ int logCD(char* pasta){
             }
         }
     }
+    cout<<comp<<endl;
     return comp;
 }
 
@@ -771,6 +779,8 @@ void copy(char* seg) {
 
 int main() {
     string oi, io, exit, seg = "", constante;
+    int pap = 0;
+    posicaoAtual pa[22];
     string antigo = "";
     char gene[20] = " ";
     zera();
@@ -804,7 +814,8 @@ int main() {
     while ((oi != "exit") && (io != "exit") && (seg != "exit") && (exit != "exit")) {
         exit = io;
         if (x > 0) {
-            cout << "\n#" << constante << antigo << ">";// mudar aqui
+
+            cout << "\n#" << constante << antigo << ">";
         }
 
         //cin >> oi;
@@ -848,17 +859,23 @@ int main() {
             create(oi, gen);
         } else if ("cd" == oi) {
             if (seg == "..") {
-                int i;
-                int k;
-                char *mko = const_cast<char *>(antigo.c_str());
-                for (i = 0; mko[i] != '\0'; i++) {
+                if(pap == 0){
+                    cerr<<"ja esta na raiz"<<endl;
+                }
+                else {
+                    int i;
+                    int k;
+                    char *mko = const_cast<char *>(antigo.c_str());
+                    for (i = 0; mko[i] != '\0'; i++) {
 
+                    }
+                    for (k = (i - 1); mko[k] != '\\'; k--) {
+                        mko[k] = 0;
+                    }
+                    mko[k - 1] = 0;
+                    antigo = mko;
+                    pap--;
                 }
-                for (k = (i - 1); mko[k] != '\\'; k--) {
-                    mko[k] = 0;
-                }
-                mko[k - 1] = 0;
-                antigo = mko;
             } else {
                 strcpy(gene, seg.c_str());
                 populaPrevio();
@@ -866,13 +883,16 @@ int main() {
                     x = -1;
                     antigo = antigo + "\\" + gene;
                     cout << "#" << constante << antigo << ">";
-
+                    pap++;
+                    pa[pap].anterior = pa[pap-1].atual;
+                    pa[pap].atual = logCD(gene);
                 } else {
                     puts("");
                     puts("pasta nao encontrada");
                 }
             }
         } else if ("dir" == oi) {
+
             //dir(gene);
         }else if ("type" == oi) {
             char temp[1024];
