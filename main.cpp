@@ -30,6 +30,29 @@ int posicaoConteudo(int po) {
 
 typedef struct generico generico;
 
+void separaParcela(string a,char* b1,char* b2){
+    strcpy(b1, a.c_str());
+    int c = 0,po = 0,i;
+    int t = a.size();
+    for (i = 0; i < t ; i++) {
+        if(c == 2){
+
+        }
+        else if(b1[i] == 32){
+            c++;
+            po = i;
+        }
+        else if(c > 0){
+            b1[i-1] = 0;
+            b2[i-(po+1)] = b1[i];
+        }
+    }
+    b1[po] = 0;
+    if(c > 1){
+        b2[i-(po)] = 0;
+    }
+}
+
 void zera(){
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
@@ -784,12 +807,32 @@ int main() {
             cout << "\n#" << constante << antigo << ">";// mudar aqui
         }
 
-        cin >> oi;
+        //cin >> oi;
+        getline( cin, oi);
+        char t[100];
+        char t2[100] = "X";
+        strcpy(t, oi.c_str());
+        separaParcela(oi,t,t2);
+        if(t2 == "X"){
+            if(oi == "dir"){
+
+            }
+            else{
+                oi = t;
+                cin>>seg;
+            }
+        }
+        else{
+            oi = t;
+            seg = t2;
+        }
+        /*
         if (oi != "dir") {
             cin >> seg;
         } else {
             seg = " ";
         }
+         */
         //oi = "create";
         if ("mkdir" == oi) {
             string dente;
@@ -815,7 +858,7 @@ int main() {
                     mko[k] = 0;
                 }
                 mko[k - 1] = 0;
-                antigo = "";
+                antigo = mko;
             } else {
                 strcpy(gene, seg.c_str());
                 populaPrevio();
