@@ -18,6 +18,15 @@ struct generico{
     string arquivo;
 };
 
+//essa funcao tira o lixo de strings
+string tiraLixo(string t,int tamanho){
+    char zerado[tamanho];
+    for (int i = 0; i < tamanho ; i++) {
+        t[i] = 0;
+    }
+    return t;
+}
+
 typedef struct generico generico;
 
 struct posicaoAtual{
@@ -36,7 +45,6 @@ int posicaoConteudo(int po) {
     int total = (1000*mil) + (100 * centena) + (10*dez) + unidade;
     return total;
 }
-
 
 void separaParcela(string a,char* b1,char* b2){
     strcpy(b1, a.c_str());
@@ -161,7 +169,6 @@ int buscaLinhadir(char* texto){
     }
     return -1;
 }
-
 
 //busca a linha que tem o arquivo mandado
 int buscaLinha(char* str){
@@ -620,12 +627,37 @@ bool dependenciaDiretaOk(char* pri, char* seg){
 
 }
 
-bool caminhoBlz(char* caminho){
-    int barra = contBarra(caminho);
-    int i;
-    for (i = 0; caminho[i] != 0 ; i++) {
-
+bool caminhoBlz(char* caminho) {
+    tiraBarra(caminho);
+    int i, fv1 = -1, fv2 = -1;
+    char v1[100];
+    char v2[100];
+    v1[0] = '0';
+    v2[0] = '0';
+    int variador = 0, equilibrio = 0, ant = 0, atual = 0;
+    char ver;
+    for (i = 0; caminho[i] != 0; i++) {
+        ver = caminho[i];
+        if (caminho[i] == '/') {
+            variador++;
+            atual = variador;
+            equilibrio = (i + 1);
+        } else if (variador > 1 && ant != atual) {
+            v1[fv1 + 1] = 0;
+            v2[fv2 + 1] = 0;
+            ant = atual;
+            cout<<"v1 = " << v1 << "\n" << "v2 = " << v2 << endl;
+        } else if (variador % 2 == 0) {
+            v1[i - equilibrio] = caminho[i];
+            fv1 = i;
+        } else if (variador % 2 != 0) {
+            v2[i - equilibrio] = caminho[i];
+            fv2 = i;
+        }
     }
+    v1[fv1 + 1] = 0;
+    v2[fv2 + 1] = 0;
+    cout <<"caminho = "<<caminho<<"\n"<< "v1 = " << v1 << "\n" << "v2 = " << v2 << endl;
 }
 
 void salvaDireto(generico azul,int past){
@@ -837,8 +869,8 @@ void copydir(char* seg,int t){
     //cin>>parcela2;
     int b1 = contBarra(seg);
     int b2 = contBarra(parcela2);
-    cout<<buscaLinhadir(seg);
-
+    //cout<<buscaLinhadir(seg);
+    caminhoBlz(seg);
 }
 
 int main() {
@@ -895,7 +927,9 @@ int main() {
             }
             else{
                 oi = t;
+                seg = tiraLixo(seg,200);
                 cin>>seg;
+                cout<<seg<<endl;
             }
         }
         else{
