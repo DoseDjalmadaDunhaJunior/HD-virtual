@@ -37,6 +37,7 @@ int posicaoConteudo(int po) {
     return total;
 }
 
+
 void separaParcela(string a,char* b1,char* b2){
     strcpy(b1, a.c_str());
     int c = 0,po = 0,i;
@@ -121,6 +122,46 @@ int tamanhoSalvo(int po){
     int total = (1000*mil) + (100 * centena) + (10*dez) + unidade;
     return total;
 }
+
+//uma funcao auxiliar para tirar a barra de um possivel vetor
+void tiraBarra(char* texto){
+    int i;
+    if(texto[0] == '/'){
+        for (i = 1; texto[i] != 0; i++) {
+            texto[i-1] = texto[i];
+        }
+        texto[i-1] = 0;
+    }
+}
+
+//busca a linha que a pasta ou diretorio esta
+int buscaLinhadir(char* texto){
+    //16 a 31
+    tiraBarra(texto);
+    char ver;
+    int i,j,comparar = tamanho(texto),tam = comparar + 16, c = 0;
+    for (i = 0; i < 20; i++) {
+        if(i == 2){
+            puts("aqui");
+
+        }
+        for (j = 16; j < tam ; j++) {
+            ver = texto[j-16];
+            if(txt[i][j] == texto[j-16]){
+                c++;
+            }
+        }
+        int comp = tam - 16;
+        if(c == comp){
+            return i;
+        }
+        else{
+            c = 0;
+        }
+    }
+    return -1;
+}
+
 
 //busca a linha que tem o arquivo mandado
 int buscaLinha(char* str){
@@ -575,6 +616,18 @@ int logicaPode(char* vetor){
     return po;
 }
 
+bool dependenciaDiretaOk(char* pri, char* seg){
+
+}
+
+bool caminhoBlz(char* caminho){
+    int barra = contBarra(caminho);
+    int i;
+    for (i = 0; caminho[i] != 0 ; i++) {
+
+    }
+}
+
 void salvaDireto(generico azul,int past){
     char temp[5] = {'0', '0', '0', '0', 0};
     int g = primeiroVago();
@@ -777,6 +830,17 @@ void copy(char* seg) {
         salvaDireto(ultraFarma,pastaFinal);
 }
 
+void copydir(char* seg,int t){
+    seg[t] = 0;
+    populaPrevio();
+    char parcela2[100];
+    //cin>>parcela2;
+    int b1 = contBarra(seg);
+    int b2 = contBarra(parcela2);
+    cout<<buscaLinhadir(seg);
+
+}
+
 int main() {
     string oi, io, exit, seg = "", constante;
     int pap = 0;
@@ -821,10 +885,11 @@ int main() {
         //cin >> oi;
         getline( cin, oi);
         char t[100];
-        char t2[100] = "X";
+        char t2[100];
+        t2[0] = 'X';
         strcpy(t, oi.c_str());
         separaParcela(oi,t,t2);
-        if(t2 == "X"){
+        if(t2[0] == 'X'){
             if(oi == "dir"){
 
             }
@@ -892,7 +957,6 @@ int main() {
                 }
             }
         } else if ("dir" == oi) {
-
             //dir(gene);
         }else if ("type" == oi) {
             char temp[1024];
@@ -904,10 +968,15 @@ int main() {
             strcpy(temp, seg.c_str());
             copy(temp);
         }
+        else if(oi == "copydir"){
+            char temp[200];
+            strcpy(temp, seg.c_str());
+            copydir(temp,tamanho(temp));
+        }
 
         //zera();
         //apaga();
-        salva2();
+        //salva2();
         x++;
 
         //system("pause");
