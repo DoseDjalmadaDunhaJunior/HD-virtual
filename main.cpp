@@ -103,7 +103,7 @@ void zera(){
 void populaPrevio(){
     FILE* ler;
     //ler = fopen(nomedoarquivo, "r");
-    ler = fopen("HD1", "r");
+    ler = fopen("HD2", "r");
     char oi;
     for (int i = 0; i < 1025; i++) {
         for (int j = 0; j < 34; j++) {
@@ -656,7 +656,12 @@ bool caminhoBlz(char* caminho) {
             v1[fv1 + 1] = 0;
             v2[fv2 + 1] = 0;
             ant = atual;
-            cout<<"v1 = " << v1 << "\n" << "v2 = " << v2 << endl;
+            if(dependenciaDiretaOk(v1,v2)){
+                cout<<"TA OK"<<endl;
+            } else{
+                cout<<"NÃO TA OK"<<endl;
+            }
+            //cout<<"v1 = " << v1 << "\n" << "v2 = " << v2 << endl;
         } else if (variador % 2 == 0) {
             v1[i - equilibrio] = caminho[i];
             fv1 = i;
@@ -667,8 +672,11 @@ bool caminhoBlz(char* caminho) {
     }
     v1[fv1 + 1] = 0;
     v2[fv2 + 1] = 0;
-    cout <<"caminho = "<<caminho<<"\n"<< "v1 = " << v1 << "\n" << "v2 = " << v2 << endl;
-}
+    if(dependenciaDiretaOk(v1,v2)){
+        cout<<"TA OK"<<endl;
+    } else{
+        cout<<"NÃO TA OK"<<endl;
+    }}
 
 void salvaDireto(generico azul,int past){
     char temp[5] = {'0', '0', '0', '0', 0};
@@ -879,7 +887,6 @@ void copydir(char* seg,int t){
     //cin>>parcela2;
     int b1 = contBarra(seg);
     int b2 = contBarra(parcela2);
-    //cout<<buscaLinhadir(seg);
     caminhoBlz(seg);
 }
 
@@ -895,7 +902,7 @@ int main() {
     exit = oi;
     if(oi != "dir"){
         //cin>>seg;
-        seg = "HD1";
+        seg = "HD2";
     }
     if ("createhd" == oi) {
         strcpy(gene, seg.c_str());
@@ -927,6 +934,8 @@ int main() {
         //cin >> oi;
         char bye[1000];
         cin.getline(bye,1000);
+        cerr<<tamanho(bye)<<endl;
+        cout<<bye<<endl;
         oi = bye;
         char t[100];
         char t2[100];
@@ -937,27 +946,13 @@ int main() {
             if (oi == "dir") {
 
             } else {
-                string n;
-                oi = t;
-                char teste[1000];
-                seg = tiraLixo(seg, 1000);
-                cin >> n;
-                seg = n;
-                fflush(stdin);
-                cout << seg;
+                cin >> seg;
             }
         }
         else{
             oi = t;
             seg = t2;
         }
-        /*
-        if (oi != "dir") {
-            cin >> seg;
-        } else {
-            seg = " ";
-        }
-         */
         //oi = "create";
         if ("mkdir" == oi) {
             string dente;
@@ -1025,7 +1020,7 @@ int main() {
 
         //zera();
         //apaga();
-        //salva2();
+        salva2();
         x++;
 
         //system("pause");
