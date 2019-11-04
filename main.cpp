@@ -46,6 +46,16 @@ int posicaoConteudo(int po) {
     return total;
 }
 
+//4 ao 7
+int pastaPai(int po){
+    int mil = (txt[po][4] - '0');
+    int centena = (txt[po][5] - '0');
+    int dez = (txt[po][6] - '0');
+    int unidade = (txt[po][7] - '0');
+    int total = (1000*mil) + (100 * centena) + (10*dez) + unidade;
+    return total;
+}
+
 void separaParcela(string a,char* b1,char* b2){
     strcpy(b1, a.c_str());
     int c = 0,po = 0,i;
@@ -624,7 +634,7 @@ int logicaPode(char* vetor){
 }
 
 bool dependenciaDiretaOk(char* pri, char* seg){
-
+    return buscaLinhadir(pri) == pastaPai(buscaLinhadir(seg));
 }
 
 bool caminhoBlz(char* caminho) {
@@ -926,10 +936,15 @@ int main() {
 
             }
             else{
+                string n;
                 oi = t;
-                seg = tiraLixo(seg,200);
-                cin>>seg;
-                cout<<seg<<endl;
+                char teste[1000];
+                seg = tiraLixo(seg,1000);
+                fflush(stdin);
+                cin>>n;
+                seg = n;
+                fflush(stdin);
+                cout<<seg;
             }
         }
         else{
