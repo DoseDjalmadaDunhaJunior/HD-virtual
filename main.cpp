@@ -925,26 +925,26 @@ int main() {
         }
 
         //cin >> oi;
-        getline( cin, oi);
+        char bye[1000];
+        cin.getline(bye,1000);
+        oi = bye;
         char t[100];
         char t2[100];
         t2[0] = 'X';
         strcpy(t, oi.c_str());
         separaParcela(oi,t,t2);
-        if(t2[0] == 'X'){
-            if(oi == "dir"){
+        if(t2[0] == 'X') {
+            if (oi == "dir") {
 
-            }
-            else{
+            } else {
                 string n;
                 oi = t;
                 char teste[1000];
-                seg = tiraLixo(seg,1000);
-                fflush(stdin);
-                cin>>n;
+                seg = tiraLixo(seg, 1000);
+                cin >> n;
                 seg = n;
                 fflush(stdin);
-                cout<<seg;
+                cout << seg;
             }
         }
         else{
